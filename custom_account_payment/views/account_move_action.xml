@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_assign_tax_repartition" model="ir.actions.server">
+            <field name="name">Assign Tax Repartition</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">action = records.assign_tax_repartition()</field>
+        </record>
+
+        <record id="action_remove_tax_repartition" model="ir.actions.server">
+            <field name="name">Remove Tax Repartition</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">action = records.remove_tax_repartition()</field>
+        </record>
+    </data>
+</odoo>

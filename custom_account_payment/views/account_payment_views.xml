@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_payment_form_inherit" model="ir.ui.view">
+            <field name="name">account.payment.form.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="tax_ids_readonly" invisible="1"/>
+                    <field name="use_custom_cash_basis_taxes" invisible="1"/>
+                    <field name="tax_ids" widget="many2many_tags" attrs="{'invisible': [('use_custom_cash_basis_taxes', '!=', True)], 'readonly': ['|', ('state', '!=', 'draft'), ('tax_ids_readonly', '=', True)]}" options="{'no_create_edit': True}" force_save="1"/>
+                    <field name="dpp_amount" attrs="{'invisible': ['|', ('use_custom_cash_basis_taxes', '!=', True), ('tax_ids', '=', []), ('amount', '=', 0.0)], 'required': [('tax_ids', '!=', [])], 'readonly': ['|', ('state', '!=', 'draft'), ('tax_ids_readonly', '=', True)]}" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

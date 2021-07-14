@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="modal_warning">
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalWarning" aria-labelledby="modalWarningLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalWarningLabel">Warning</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"/>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-modal-ok">Ok</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="modal_attachment">
+        <div class="modal fade" tabindex="-1" role="dialog" id="attachmentModal" aria-labelledby="attachmentModelLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="attachmentModalLabel">Attachments</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="w-100">
+                            <thead>
+                                <tr>
+                                    <th>Filename</th>
+                                    <th>Size</th>
+                                    <th class="text-right">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modal-attachment">
+                                <t t-foreach="attachments" t-as="attachment">
+                                    <tr t-att-id="'row-' + attachment.name">
+                                        <td><t t-esc="attachment.name"/></td>
+                                        <td><t t-esc="attachment.file_size"/></td>
+                                        <td class="text-right">
+                                            <a type="button" href="#" t-att-id="'delete-' + attachment.name">
+                                                <span class="fa fa-trash"/>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="add_documents" type="button" class="btn btn-primary" data-edit="all" disabled="disabled">Add Files</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="modal_list">
+        <div class="modal fade" tabindex="-1" role="dialog" id="listModal" aria-labelledby="listModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content h-100">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="listModalLabel"><t t-esc="model"/></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-0" t-att-data-model="model" t-att-data-domain="domain"/>
+                    <div class="modal-footer">
+                        <button id="btn-select" type="button" class="btn btn-primary">Select</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

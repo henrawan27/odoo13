@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="line_caret_options" inherit_id="account_reports.line_caret_options">
+            <xpath expr="//li[last()]" position="after">
+                <li t-if="line['caret_options'] == 'account.asset.correction'">
+                  <a role="menuitem"
+                     tabindex="-1"
+                     t-att-data-id="line['id']"
+                     action="open_asset_correction"
+                     class="dropdown-item">Open Correction</a>
+                </li>
+            </xpath>
+        </template>
+    </data>
+</odoo>
