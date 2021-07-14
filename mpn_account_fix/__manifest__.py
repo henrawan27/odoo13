@@ -23,9 +23,9 @@
         'financial_report',
     ],
     'data': [
-        'data/account_tax_data.xml',
-        'data/financial_report_data.xml',
-        'data/company_settings.xml',
+        # 'data/account_tax_data.xml',
+        # 'data/financial_report_data.xml',
+        # 'data/company_settings.xml',
         'views/account_move_filters.xml',
         'views/ir_sequence_views.xml'
     ],
