@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l10n_id_mpn_chart" model="account.chart.template">
+        <field name="name">MPN Account Chart Template</field>
+        <field name="bank_account_code_prefix">112.</field>
+        <field name="cash_account_code_prefix">111.01.001</field>
+        <field name="transfer_account_code_prefix">1999999</field>
+        <field name="code_digits">10</field>
+        <field name="currency_id" ref="base.IDR"/>
+    </record>
+</odoo>

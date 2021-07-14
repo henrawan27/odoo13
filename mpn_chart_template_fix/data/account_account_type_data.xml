@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- account.account.type -->
+        <record id="data_account_type_kas_dan_setara_kas" model="account.account.type">
+			<field name="name">Kas dan Setara Kas</field>
+			<field name="type">liquidity</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_piutang_usaha" model="account.account.type">
+			<field name="name">Piutang Usaha</field>
+			<field name="type">receivable</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_piutang_lain" model="account.account.type">
+			<field name="name">Piutang Lain</field>
+			<field name="type">other</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_persediaan" model="account.account.type">
+			<field name="name">Persediaan</field>
+			<field name="type">other</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_uang_muka_pembelian" model="account.account.type">
+			<field name="name">Uang Muka Pembelian</field>
+			<field name="type">other</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_biaya_dibayar_dimuka" model="account.account.type">
+			<field name="name">Biaya Dibayar Dimuka</field>
+			<field name="type">other</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_pajak_dibayar_dimuka" model="account.account.type">
+			<field name="name">Pajak Dibayar Dimuka</field>
+			<field name="type">other</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_aset_tetap" model="account.account.type">
+			<field name="name">Aset Tetap</field>
+			<field name="type">other</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_aset_pengampunan_pajak" model="account.account.type">
+			<field name="name">Aset Pengampunan Pajak</field>
+			<field name="type">other</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_aset_tidak_berwujud" model="account.account.type">
+			<field name="name">Aset Tidak Berwujud</field>
+			<field name="type">other</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_investasi" model="account.account.type">
+			<field name="name">Investasi</field>
+			<field name="type">other</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_jaminan" model="account.account.type">
+			<field name="name">Jaminan</field>
+			<field name="type">other</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_hutang_usaha" model="account.account.type">
+			<field name="name">Hutang Usaha</field>
+			<field name="type">payable</field>
+			<field name="internal_group">liability</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_hutang_pajak" model="account.account.type">
+			<field name="name">Hutang Pajak</field>
+			<field name="type">other</field>
+			<field name="internal_group">liability</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_biaya_sewa_diterima_dimuka" model="account.account.type">
+			<field name="name">Biaya Sewa Diterima Dimuka</field>
+			<field name="type">other</field>
+			<field name="internal_group">liability</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_hutang_bank" model="account.account.type">
+			<field name="name">Hutang Bank</field>
+			<field name="type">liquidity</field>
+			<field name="internal_group">liability</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_biaya_yang_masih_harus_dibayar" model="account.account.type">
+			<field name="name">Biaya Yang Masih Harus Dibayar</field>
+			<field name="type">other</field>
+			<field name="internal_group">liability</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_hutang_sewa_guna_usaha" model="account.account.type">
+			<field name="name">Hutang Sewa Guna Usaha</field>
+			<field name="type">other</field>
+			<field name="internal_group">liability</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_pendapatan_diterima_dimuka" model="account.account.type">
+			<field name="name">Pendapatan Diterima Dimuka</field>
+			<field name="type">other</field>
+			<field name="internal_group">liability</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_hutang_lain" model="account.account.type">
+			<field name="name">Hutang Lain</field>
+			<field name="type">other</field>
+			<field name="internal_group">liability</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_titipan" model="account.account.type">
+			<field name="name">Titipan</field>
+			<field name="type">other</field>
+			<field name="internal_group">liability</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_modal" model="account.account.type">
+			<field name="name">Modal</field>
+			<field name="type">other</field>
+			<field name="internal_group">equity</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_modal_tambahan_disetor" model="account.account.type">
+			<field name="name">Modal Tambahan Disetor</field>
+			<field name="type">other</field>
+			<field name="internal_group">equity</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_laba_(rugi)_ditahan" model="account.account.type">
+			<field name="name">Laba (Rugi) Ditahan</field>
+			<field name="type">other</field>
+			<field name="internal_group">equity</field>
+			<field name="include_initial_balance" eval="True"/>
+		</record>
+		<record id="data_account_type_pendapatan_sewa" model="account.account.type">
+			<field name="name">Pendapatan Sewa</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pendapatan_batal_sewa" model="account.account.type">
+			<field name="name">Pendapatan Batal Sewa</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_penjualan_edc" model="account.account.type">
+			<field name="name">Penjualan EDC</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pendapatan_sewa_bank_lain" model="account.account.type">
+			<field name="name">Pendapatan Sewa Bank Lain</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pendapatan_mobile_collection" model="account.account.type">
+			<field name="name">Pendapatan Mobile Collection</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pendapatan_jasa_layanan" model="account.account.type">
+			<field name="name">Pendapatan Jasa Layanan</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pendapatan_lainnya" model="account.account.type">
+			<field name="name">Pendapatan Lainnya</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pendapatan_nsiccs" model="account.account.type">
+			<field name="name">Pendapatan NSICCS</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pendapatan_licenses" model="account.account.type">
+			<field name="name">Pendapatan Licenses</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pendapatan_vps" model="account.account.type">
+			<field name="name">Pendapatan VPS</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pendapatan_atm" model="account.account.type">
+			<field name="name">Pendapatan ATM</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pendapatan_pos_system" model="account.account.type">
+			<field name="name">Pendapatan POS System</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_penyusutan" model="account.account.type">
+			<field name="name">Beban Penyusutan</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_sewa_guna_usaha" model="account.account.type">
+			<field name="name">Beban Sewa Guna Usaha</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_bunga_pinjaman_bprks" model="account.account.type">
+			<field name="name">Bunga Pinjaman BPRKS</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_nsiccs" model="account.account.type">
+			<field name="name">Beban NSICCS</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_pelepasan_edc" model="account.account.type">
+			<field name="name">Beban Pelepasan EDC</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_penagihan_edc" model="account.account.type">
+			<field name="name">Beban Penagihan EDC</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_atm" model="account.account.type">
+			<field name="name">Beban ATM</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_mobile_collection" model="account.account.type">
+			<field name="name">Beban Mobile Collection</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_internet_dan_telekomunikasi" model="account.account.type">
+			<field name="name">Beban Internet dan Telekomunikasi</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_lain" model="account.account.type">
+			<field name="name">Beban Lain</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_batal_sewa" model="account.account.type">
+			<field name="name">Beban Batal Sewa</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_pos_system" model="account.account.type">
+			<field name="name">Beban POS System</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_vps" model="account.account.type">
+			<field name="name">Beban VPS</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_pengembangan" model="account.account.type">
+			<field name="name">Beban Pengembangan</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_beban_layanan" model="account.account.type">
+			<field name="name">Beban Layanan</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_gaji" model="account.account.type">
+			<field name="name">Gaji</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_insentif" model="account.account.type">
+			<field name="name">Insentif</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_promosi" model="account.account.type">
+			<field name="name">Promosi</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_perlengkapan_kantor" model="account.account.type">
+			<field name="name">Perlengkapan Kantor</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_listrik,_air_dan_telepon" model="account.account.type">
+			<field name="name">Listrik, Air dan Telepon</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pengiriman" model="account.account.type">
+			<field name="name">Pengiriman</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_cetakan" model="account.account.type">
+			<field name="name">Cetakan</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_perjalanan_dinas" model="account.account.type">
+			<field name="name">Perjalanan Dinas</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_tenaga_ahli" model="account.account.type">
+			<field name="name">Tenaga Ahli</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pendidikan_latihan" model="account.account.type">
+			<field name="name">Pendidikan Latihan</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_sewa" model="account.account.type">
+			<field name="name">Sewa</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_penyusutan" model="account.account.type">
+			<field name="name">Penyusutan</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_amortisasi" model="account.account.type">
+			<field name="name">Amortisasi</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_lainnya" model="account.account.type">
+			<field name="name">Lainnya</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pajak_penghasilan" model="account.account.type">
+			<field name="name">Pajak Penghasilan</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_bunga_bank" model="account.account.type">
+			<field name="name">Bunga Bank</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_admin_bank" model="account.account.type">
+			<field name="name">Admin Bank</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+		<record id="data_account_type_pendapatan_beban_lain" model="account.account.type">
+			<field name="name">Pendapatan Beban Lain</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+			<field name="include_initial_balance" eval="False"/>
+		</record>
+    </data>
+</odoo>

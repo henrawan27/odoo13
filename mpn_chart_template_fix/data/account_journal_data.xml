@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="data_bank_bprks" model="res.bank">
+            <field name="name">BPR Karyajatnika Sadaya</field>
+        </record>
+
+        <record id="data_bank_bjb" model="res.bank">
+            <field name="name">Bank BJB"</field>
+        </record>
+
+        <record id="data_bank_jambi" model="res.bank">
+            <field name="name">Bank Jambi</field>
+        </record>
+
+        <record id="data_bank_ekonomi" model="res.bank">
+            <field name="name">Bank Ekonomi</field>
+        </record>
+
+        <record id="data_bank_mandiri" model="res.bank">
+            <field name="name">Bank Mandiri</field>
+        </record>
+
+        <record id="data_bank_bni" model="res.bank">
+            <field name="name">Bank BNI</field>
+        </record>
+
+        <record id="data_bank_mandiri_taspen" model="res.bank">
+            <field name="name">Bank MANTAP</field>
+        </record>
+
+        <record id="data_bank_jatim" model="res.bank">
+            <field name="name">Bank Jatim</field>
+        </record>
+
+        <record id="data_bank_woori_saudara" model="res.bank">
+            <field name="name">Bank Woori Saudara</field>
+        </record>
+
+        <record id="data_bank_account_bprks" model="res.partner.bank">
+            <field name="acc_number">123456789-bprks</field>
+            <field name="bank_id" ref="data_bank_bprks"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+        <record id="data_bank_account_bprks_3000675678" model="res.partner.bank">
+            <field name="acc_number">3000675678</field>
+            <field name="bank_id" ref="data_bank_bprks"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+        <record id="data_bank_account_bprks_3001025607" model="res.partner.bank">
+            <field name="acc_number">3001025607</field>
+            <field name="bank_id" ref="data_bank_bprks"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+        <record id="data_bank_account_bprks_3001284613" model="res.partner.bank">
+            <field name="acc_number">3001284613</field>
+            <field name="bank_id" ref="data_bank_bprks"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+        <record id="data_bank_account_bjb_1100000888001" model="res.partner.bank">
+            <field name="acc_number">1100000888001</field>
+            <field name="bank_id" ref="data_bank_bjb"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+        <record id="data_bank_account_jambi_3002115785" model="res.partner.bank">
+            <field name="acc_number">3002115785</field>
+            <field name="bank_id" ref="data_bank_jambi"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+        <record id="data_bank_account_ekonomi" model="res.partner.bank">
+            <field name="acc_number">123456789-ekonomi</field>
+            <field name="bank_id" ref="data_bank_ekonomi"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+        <record id="data_bank_account_mandiri_1" model="res.partner.bank">
+            <field name="acc_number">123456789-mandiri-1</field>
+            <field name="bank_id" ref="data_bank_mandiri"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+        <record id="data_bank_account_mandiri_2" model="res.partner.bank">
+            <field name="acc_number">123456789-mandiri-2</field>
+            <field name="bank_id" ref="data_bank_mandiri"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+        <record id="data_bank_account_bni" model="res.partner.bank">
+            <field name="acc_number">123456789-bni</field>
+            <field name="bank_id" ref="data_bank_bni"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+        <record id="data_bank_account_mandiri_taspen" model="res.partner.bank">
+            <field name="acc_number">123456789-mandiri-taspen</field>
+            <field name="bank_id" ref="data_bank_mandiri_taspen"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+        <record id="data_bank_account_jatim" model="res.partner.bank">
+            <field name="acc_number">123456789-jatim</field>
+            <field name="bank_id" ref="data_bank_jatim"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+        <record id="data_bank_account_woori_saudara" model="res.partner.bank">
+            <field name="acc_number">123456789-woori-saudara</field>
+            <field name="bank_id" ref="data_bank_woori_saudara"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+
+        <record id="data_account_journal_amortisasi_software" model="account.journal">
+            <field name="name">Amortisasi Software</field>
+            <field name="type">general</field>
+            <field name="code">AMOR1</field>
+            <field name="default_debit_account_id" ref="a_x_761_02_001"/>
+            <field name="default_credit_account_id" ref="a_x_211_02_001"/>
+        </record>
+
+        <record id="data_account_journal_penyusutan_komputer" model="account.journal">
+            <field name="name">Penyusutan Komputer</field>
+            <field name="type">general</field>
+            <field name="code">DEP01</field>
+            <field name="default_debit_account_id" ref="a_x_761_01_002"/>
+            <field name="default_credit_account_id" ref="a_x_211_01_001"/>
+        </record>
+
+        <record id="data_account_journal_penyusutan_edc" model="account.journal">
+            <field name="name">Penyusutan EDC</field>
+            <field name="type">general</field>
+            <field name="code">DEP02</field>
+            <field name="default_debit_account_id" ref="a_x_611_01_002"/>
+            <field name="default_credit_account_id" ref="a_x_211_01_002"/>
+        </record>
+
+        <record id="data_account_journal_penyusutan_mebel_dan_atk" model="account.journal">
+            <field name="name">Penyusutan Mebel &amp; ATK</field>
+            <field name="type">general</field>
+            <field name="code">DEP03</field>
+            <field name="default_debit_account_id" ref="a_x_761_01_001"/>
+            <field name="default_credit_account_id" ref="a_x_211_01_003"/>
+        </record>
+
+        <record id="data_account_journal_penyusutan_peralatan_kantor" model="account.journal">
+            <field name="name">Penyusutan Peralatan Kantor</field>
+            <field name="type">general</field>
+            <field name="code">DEP04</field>
+            <field name="default_debit_account_id" ref="a_x_761_01_003"/>
+            <field name="default_credit_account_id" ref="a_x_211_01_004"/>
+        </record>
+
+        <record id="data_account_journal_penyusutan_aset_ta" model="account.journal">
+            <field name="name">Penyusutan Aset TA</field>
+            <field name="type">general</field>
+            <field name="code">DEP05</field>
+            <field name="default_debit_account_id" ref="a_x_761_01_005"/>
+            <field name="default_credit_account_id" ref="a_x_211_01_006"/>
+        </record>
+
+        <record id="data_account_journal_penyusutan_mesin_grg" model="account.journal">
+            <field name="name">Penyusutan Mesin GRG</field>
+            <field name="type">general</field>
+            <field name="code">DEP06</field>
+            <field name="default_debit_account_id" ref="a_x_761_01_006"/>
+            <field name="default_credit_account_id" ref="a_x_211_01_007"/>
+        </record>
+
+        <record id="data_account_journal_penyusutan_renovasi_bangunan" model="account.journal">
+            <field name="name">Penyusutan Renovasi Bangunan</field>
+            <field name="type">general</field>
+            <field name="code">DEP07</field>
+            <field name="default_debit_account_id" ref="a_x_761_01_008"/>
+            <field name="default_credit_account_id" ref="a_x_211_01_009"/>
+        </record>
+
+        <record id="data_account_journal_bank_bprks" model="account.journal">
+            <field name="name">Bank BPRKS</field>
+            <field name="type">bank</field>
+            <field name="code">BNK01</field>
+            <field name="default_debit_account_id" ref="a_x_112_01_001"/>
+            <field name="default_credit_account_id" ref="a_x_112_01_001"/>
+            <field name="bank_id" ref="data_bank_bprks"/>
+            <field name="bank_account_id" ref="data_bank_account_bprks"/>
+        </record>
+
+        <record id="data_account_journal_bank_bprks_3000675678" model="account.journal">
+            <field name="name">Bank BPRKS 3000675678</field>
+            <field name="type">bank</field>
+            <field name="code">BNK02</field>
+            <field name="default_debit_account_id" ref="a_x_112_01_002"/>
+            <field name="default_credit_account_id" ref="a_x_112_01_002"/>
+            <field name="bank_id" ref="data_bank_bprks"/>
+            <field name="bank_account_id" ref="data_bank_account_bprks_3000675678"/>
+        </record>
+
+        <record id="data_account_journal_bank_bprks_3001025607" model="account.journal">
+            <field name="name">Bank BPRKS 3001025607</field>
+            <field name="type">bank</field>
+            <field name="code">BNK03</field>
+            <field name="default_debit_account_id" ref="a_x_112_01_003"/>
+            <field name="default_credit_account_id" ref="a_x_112_01_003"/>
+            <field name="bank_id" ref="data_bank_bprks"/>
+            <field name="bank_account_id" ref="data_bank_account_bprks_3001025607"/>
+        </record>
+
+        <record id="data_account_journal_bank_bprks_3001284613" model="account.journal">
+            <field name="name">Bank BPRKS 3001284613</field>
+            <field name="type">bank</field>
+            <field name="code">BNK04</field>
+            <field name="default_debit_account_id" ref="a_x_112_01_004"/>
+            <field name="default_credit_account_id" ref="a_x_112_01_004"/>
+            <field name="bank_id" ref="data_bank_bprks"/>
+            <field name="bank_account_id" ref="data_bank_account_bprks_3001284613"/>
+        </record>
+
+        <record id="data_account_journal_bank_bjb_1100000888001" model="account.journal">
+            <field name="name">Bank BJB 1100000888001</field>
+            <field name="type">bank</field>
+            <field name="code">BNK05</field>
+            <field name="default_debit_account_id" ref="a_x_112_01_005"/>
+            <field name="default_credit_account_id" ref="a_x_112_01_005"/>
+            <field name="bank_id" ref="data_bank_bjb"/>
+            <field name="bank_account_id" ref="data_bank_account_bjb_1100000888001"/>
+        </record>
+
+        <record id="data_account_journal_bank_jambi_3002115785" model="account.journal">
+            <field name="name">Bank Jambi 3002115785</field>
+            <field name="type">bank</field>
+            <field name="code">BNK06</field>
+            <field name="default_debit_account_id" ref="a_x_112_01_006"/>
+            <field name="default_credit_account_id" ref="a_x_112_01_006"/>
+            <field name="bank_id" ref="data_bank_jambi"/>
+            <field name="bank_account_id" ref="data_bank_account_jambi_3002115785"/>
+        </record>
+
+        <record id="data_account_journal_bank_ekonomi" model="account.journal">
+            <field name="name">Bank Ekonomi</field>
+            <field name="type">bank</field>
+            <field name="code">BNK07</field>
+            <field name="default_debit_account_id" ref="a_x_112_02_001"/>
+            <field name="default_credit_account_id" ref="a_x_112_02_001"/>
+            <field name="bank_id" ref="data_bank_ekonomi"/>
+            <field name="bank_account_id" ref="data_bank_account_ekonomi"/>
+        </record>
+
+        <record id="data_account_journal_bank_mandiri" model="account.journal">
+            <field name="name">Bank Mandiri</field>
+            <field name="type">bank</field>
+            <field name="code">BNK08</field>
+            <field name="default_debit_account_id" ref="a_x_112_03_001"/>
+            <field name="default_credit_account_id" ref="a_x_112_03_001"/>
+            <field name="bank_id" ref="data_bank_mandiri"/>
+            <field name="bank_account_id" ref="data_bank_account_mandiri_1"/>
+        </record>
+
+        <record id="data_account_journal_bank_mandiri_usd" model="account.journal">
+            <field name="name">Bank Mandiri USD</field>
+            <field name="type">bank</field>
+            <field name="code">BNK09</field>
+            <field name="default_debit_account_id" ref="a_x_112_03_002"/>
+            <field name="default_credit_account_id" ref="a_x_112_03_002"/>
+            <field name="bank_id" ref="data_bank_mandiri"/>
+            <field name="bank_account_id" ref="data_bank_account_mandiri_2"/>
+        </record>
+
+        <record id="data_account_journal_bank_bni" model="account.journal">
+            <field name="name">Bank BNI</field>
+            <field name="type">bank</field>
+            <field name="code">BNK10</field>
+            <field name="default_debit_account_id" ref="a_x_112_04_001"/>
+            <field name="default_credit_account_id" ref="a_x_112_04_001"/>
+            <field name="bank_id" ref="data_bank_bni"/>
+            <field name="bank_account_id" ref="data_bank_account_bni"/>
+        </record>
+
+        <record id="data_account_journal_bank_mandiri_taspen" model="account.journal">
+            <field name="name">Bank MANTAP</field>
+            <field name="type">bank</field>
+            <field name="code">BNK11</field>
+            <field name="default_debit_account_id" ref="a_x_112_05_001"/>
+            <field name="default_credit_account_id" ref="a_x_112_05_001"/>
+            <field name="bank_id" ref="data_bank_mandiri_taspen"/>
+            <field name="bank_account_id" ref="data_bank_account_mandiri_taspen"/>
+        </record>
+
+        <record id="data_account_journal_bank_jatim" model="account.journal">
+            <field name="name">Bank JATIM</field>
+            <field name="type">bank</field>
+            <field name="code">BNK12</field>
+            <field name="default_debit_account_id" ref="a_x_112_06_001"/>
+            <field name="default_credit_account_id" ref="a_x_112_06_001"/>
+            <field name="bank_id" ref="data_bank_jatim"/>
+            <field name="bank_account_id" ref="data_bank_account_jatim"/>
+        </record>
+
+        <record id="data_account_journal_bank_woori_saudara" model="account.journal">
+            <field name="name">Bank Woori Saudara</field>
+            <field name="type">bank</field>
+            <field name="code">BNK13</field>
+            <field name="default_debit_account_id" ref="a_x_112_07_001"/>
+            <field name="default_credit_account_id" ref="a_x_112_07_001"/>
+            <field name="bank_id" ref="data_bank_woori_saudara"/>
+            <field name="bank_account_id" ref="data_bank_account_woori_saudara"/>
+        </record>
+    </data>
+</odoo>
