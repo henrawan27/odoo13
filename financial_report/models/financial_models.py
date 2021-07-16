@@ -21,7 +21,7 @@ class financial_report(models.Model):
         ('group_id', 'Accounts Group'),
         ('account_type', 'Account Type'),
         ('account_report', 'Report Value'),
-        ], 'Type', default='accounts')
+        ], 'Line Type', default='accounts')
 	# custom_children_ids = fields.One2many('res.partner', 'custom_parent_id', string='Children')
 	# account_ids = fields.One2many('account.account', 'account_id' string='Accounts')
 	# account_report_ids = fields.One2many('account.financial.html.report.line', 'parent_id', string='Report Value')
