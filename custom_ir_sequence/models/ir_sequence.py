@@ -12,7 +12,7 @@ class IrSequence(models.Model):
         selection=[('month', 'Per Month'), ('year', 'Per Year')],
         string='Reset Method',
         required=True,
-        default='month'
+        default='year'
     )
 
     def _create_date_range_seq(self, date):
@@ -64,15 +64,15 @@ class IrSequence(models.Model):
                 'weekday': '%w', 'h24': '%H', 'h12': '%I', 'min': '%M', 'sec': '%S', 'month_roman': '-'
             }
             res = {}
-            for key, format in sequences.items():
+            for key, form in sequences.items():
                 if key == 'month_roman':
                     res[key] = int_to_roman(effective_date.month)
                     res['range_' + key] = int_to_roman(range_date.month)
                     res['current_' + key] = int_to_roman(now.month)
                 else:
-                    res[key] = effective_date.strftime(format)
-                    res['range_' + key] = range_date.strftime(format)
-                    res['current_' + key] = now.strftime(format)
+                    res[key] = effective_date.strftime(form)
+                    res['range_' + key] = range_date.strftime(form)
+                    res['current_' + key] = now.strftime(form)
 
             return res
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <function model="extra.company.settings" name="get_company_settings"/>
+<!--        <function model="extra.company.settings" name="get_company_settings"/>-->
 
         <record model="res.config.settings" id="res_config_settings_mpn">
             <field name="tax_exigibility" eval="1"/>
