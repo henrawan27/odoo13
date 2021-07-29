@@ -9,4 +9,6 @@ class AccountJournal(models.Model):
         prefix = code.upper()
         if refund:
             prefix = 'R' + prefix
-        return prefix + '/%(range_year)s/'
+        if not self.env.company.mpn_sequence:
+            return prefix + '/%(range_year)s/'
+        return prefix + '/%(roman_month)s/%(range_year)s/'

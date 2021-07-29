@@ -1,6 +1,4 @@
-from odoo import models, api, modules
-import base64
-import xlrd
+from odoo import models, api
 
 
 class CompanySettings(models.TransientModel):

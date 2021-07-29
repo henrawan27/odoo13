@@ -46,7 +46,7 @@ class IrSequence(models.Model):
             roman_num = ''
             i = 0
             while num > 0:
-                for _ in range(num // val[i]):
+                for j in range(num // val[i]):
                     roman_num += syb[i]
                     num -= val[i]
                 i += 1
@@ -61,18 +61,18 @@ class IrSequence(models.Model):
 
             sequences = {
                 'year': '%Y', 'month': '%m', 'day': '%d', 'y': '%y', 'doy': '%j', 'woy': '%W',
-                'weekday': '%w', 'h24': '%H', 'h12': '%I', 'min': '%M', 'sec': '%S', 'month_roman': '-'
+                'weekday': '%w', 'h24': '%H', 'h12': '%I', 'min': '%M', 'sec': '%S'
             }
             res = {}
             for key, form in sequences.items():
-                if key == 'month_roman':
-                    res[key] = int_to_roman(effective_date.month)
-                    res['range_' + key] = int_to_roman(range_date.month)
-                    res['current_' + key] = int_to_roman(now.month)
-                else:
-                    res[key] = effective_date.strftime(form)
-                    res['range_' + key] = range_date.strftime(form)
-                    res['current_' + key] = now.strftime(form)
+                res[key] = effective_date.strftime(form)
+                res['range_' + key] = range_date.strftime(form)
+                res['current_' + key] = now.strftime(form)
+
+                # add roman values
+                res['roman_' + key] = int_to_roman(int(res[key]))
+                res['range_roman_' + key] = int_to_roman(int(res['range_' + key]))
+                res['current_roman_' + key] = int_to_roman(int(res['current_' + key]))
 
             return res
 
