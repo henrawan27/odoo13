@@ -13,7 +13,6 @@
     'depends': [
         'account',
         'account_accountant',
-        'l10n_id_efaktur',
         'custom_account_move',
         'custom_ir_sequence',
         'custom_account_asset',
