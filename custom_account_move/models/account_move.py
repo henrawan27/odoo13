@@ -4,9 +4,15 @@ from odoo import models, fields, api, _
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
+    def _compute_draft_number(self):
+        for move in self:
+            prefix, suffix = move.journal_id.sequence_id._get_prefix_suffix()
+            move.draft_number = prefix + suffix
+
     account_opening_move_id = fields.Many2one('account.move', related='company_id.account_opening_move_id')
     create_as_opening = fields.Boolean(string='Create as Opening')
     mark_reconcile = fields.Boolean(string='Mark Reconcile')
+    draft_number = fields.Char(string='Draft Number', compute=_compute_draft_number)
 
     @api.model
     def create(self, vals):

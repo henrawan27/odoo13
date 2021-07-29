@@ -16,5 +16,13 @@
             <field name="state">code</field>
             <field name="code">action = records.remove_tax_repartition()</field>
         </record>
+
+        <record id="action_assign_pph_23" model="ir.actions.server">
+            <field name="name">Assign PPH 23</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">action = records.assign_pph_23()</field>
+        </record>
     </data>
 </odoo>

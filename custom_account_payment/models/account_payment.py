@@ -17,7 +17,7 @@ class AccountPayment(models.Model):
         return invoices
 
     def _default_tax_ids(self):
-        if not self.use_custom_cash_basis_taxes:
+        if not self.env.company.use_custom_cash_basis_taxes:
             return []
         invoices = self._get_active_invoices()
         tax_ids = []
@@ -28,24 +28,12 @@ class AccountPayment(models.Model):
         return tax_ids
 
     def _default_dpp_amount(self):
-        if not self.use_custom_cash_basis_taxes:
+        if not self.env.company.use_custom_cash_basis_taxes:
             return 0.0
         invoices = self._get_active_invoices()
         if len(invoices) == 1:
             return sum(invoices.mapped('amount_untaxed'))
         return 0.0
-
-    def action_register_payment(self):
-        action = super(AccountPayment, self).action_register_payment()
-        if not action or not self.use_custom_cash_basis_taxes:
-            return action
-
-        invoices = self._get_active_invoices()
-        context = dict(self.env.context)
-        if len(invoices) == 1:
-            context.update({'default_tax_ids_readonly': True})
-            action['context'] = context
-        return action
 
     def _get_dpp_amount(self):
         invoices = self._get_active_invoices()
@@ -59,30 +47,28 @@ class AccountPayment(models.Model):
 
     @api.onchange('dpp_amount')
     def _onchange_dpp_amount(self):
-        if self.tax_ids and not self.env.context.get('pass_check') and self.use_custom_cash_basis_taxes:
-            if self.dpp_amount <= 0.0:
+        if self.tax_ids and not self.env.context.get('pass_check') and self.env.company.use_custom_cash_basis_taxes:
+            if self.dpp_amount < 0.0:
                 raise UserError(_("DPP Amount must be positive!"))
-            if self.dpp_amount > self.amount:
-                raise UserError(_("DPP Amount can't be greater than Total Amount!"))
+            # self.tax_amount = self._default_tax_amount()
 
-    @api.onchange('amount', 'currency_id')
-    def _onchange_amount(self):
-        domain = super(AccountPayment, self)._onchange_amount()
-        if self.use_custom_cash_basis_taxes:
-            dpp_amount = self.tax_ids and self._get_dpp_amount() or 0.0
-            self.with_context(pass_check=True).write({'dpp_amount': dpp_amount})
-        return domain
-
+    # @api.onchange('amount', 'currency_id')
+    # def _onchange_amount(self):
+    #     domain = super(AccountPayment, self)._onchange_amount()
+    #     if self.env.company.use_custom_cash_basis_taxes:
+    #         dpp_amount = self.tax_ids and self._get_dpp_amount() or 0.0
+    #         self.with_context(pass_check=True).write({'dpp_amount': dpp_amount})
+    #     return domain
+    #
     @api.onchange('tax_ids')
     def _onchange_tax_ids(self):
-        if self.use_custom_cash_basis_taxes:
-            dpp_amount = self.tax_ids and self.amount and self._get_dpp_amount() or 0.0
-            self.with_context(pass_check=True).write({'dpp_amount': dpp_amount})
+        if self.env.company.use_custom_cash_basis_taxes:
+            self._onchange_dpp_amount()
 
-    def _prepare_payment_moves(self):
+    def _prepare_payment_moves(self, return_tax_amount=False):
         moves = super(AccountPayment, self)._prepare_payment_moves()
 
-        if not self.use_custom_cash_basis_taxes:
+        if not self.env.company.use_custom_cash_basis_taxes:
             return moves
 
         for i, payment in enumerate(self):
@@ -128,6 +114,9 @@ class AccountPayment(models.Model):
                         else:
                             account_tax_amount[key] += amount
 
+            if return_tax_amount:
+                return sum([v for k, v in account_tax_amount.items()])
+
             total_amount = 0.0
             if account_tax_amount:
                 for key, balance in account_tax_amount.items():
@@ -163,10 +152,44 @@ class AccountPayment(models.Model):
                     moves[i]['line_ids'][1][-1]['credit'] += balance_amount
         return moves
 
+    def _compute_export_line_ids(self):
+        for payment in self:
+            moves = payment._prepare_payment_moves()
+
+            # delete current export line
+            current_export_ids = self.env['payment.export.line'].search([('payment_id', '=', payment.id)])
+            if current_export_ids:
+                current_export_ids.unlink()
+
+            # create new export line
+            export_ids = []
+            for c1, c2, line in moves[0].get('line_ids', []):
+                values = {
+                    'name': line.get('name', ''),
+                    'account_id': line.get('account_id', False),
+                    'debit': line.get('debit', 0.0),
+                    'credit': line.get('credit', 0.0)
+                }
+                line_id = self.env['payment.export.line'].create(values)
+                export_ids.append(line_id.id)
+            payment.export_line_ids = [(6, 0, export_ids)]
+
     tax_ids = fields.Many2many('account.tax', string='Taxes', domain="[('tax_exigibility', '=', 'on_payment_custom')]", default=_default_tax_ids)
     dpp_amount = fields.Monetary(string='DPP Amount', currency_field='currency_id', default=_default_dpp_amount)
-    tax_ids_readonly = fields.Boolean(string='Tax Readonly')
     use_custom_cash_basis_taxes = fields.Boolean(related='company_id.use_custom_cash_basis_taxes', string='Use Custom Cash Basis Taxes')
+    export_line_ids = fields.One2many('payment.export.line', 'payment_id', string='Export Lines', compute=_compute_export_line_ids)
+
+
+class PaymentExportLine(models.Model):
+    _name = 'payment.export.line'
+    _description = 'Payment'
+
+    payment_id = fields.Many2one('account.payment', string='Payment', ondelete='cascade')
+    currency_id = fields.Many2one('res.currency', string='Currency', required=True, readonly=True, states={'draft': [('readonly', False)]}, default=lambda self: self.env.company.currency_id)
+    name = fields.Char(string='Label')
+    account_id = fields.Many2one('account.account', string='Account', index=True, ondelete="restrict", check_company=True, domain=[('deprecated', '=', False)])
+    debit = fields.Monetary(string='Debit', default=0.0, currency_field='currency_id')
+    credit = fields.Monetary(string='Credit', default=0.0, currency_field='currency_id')
 
 
 class PaymentRegister(models.TransientModel):

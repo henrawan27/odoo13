@@ -110,6 +110,12 @@ class EmployeePortal(http.Controller):
             except TypeError:
                 offset = None
                 limit = 20
+                if view_mode == 'form':
+                    domain.append(('id', '=', False))
+
+        print('domain', domain)
+        print('offset', offset)
+        print('limit', limit)
 
         fields = self._get_fields(active_model=active_model, mode=view_mode)
         list_fields = [f for f in fields]

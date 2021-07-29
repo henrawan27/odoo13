@@ -12,6 +12,7 @@
     'depends': ['account', 'account_reports'],
     'license': 'LGPL-3',
     'data': [
+        'security/ir.model.access.csv',
         'views/account_tax_views.xml',
         'views/account_payment_views.xml',
         'views/account_move_action.xml',

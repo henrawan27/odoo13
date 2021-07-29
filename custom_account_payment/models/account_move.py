@@ -54,3 +54,17 @@ class AccountMove(models.Model):
         for move in self:
             for line in move.line_ids:
                 line.tax_repartition_line_id = False
+
+    def assign_pph_23(self):
+        pph_23 = self.env['account.tax'].search([('name', '=', 'PPh 23')])[0]
+
+        for move in self:
+
+            for line in move.invoice_line_ids:
+
+                taxes = []
+                for tax in line.tax_ids:
+                    taxes.append(tax.name)
+
+                if 'PPh 23' not in taxes:
+                    line.with_context(bypass=True).write({'tax_ids': [(4, pph_23.id, 0)]})
