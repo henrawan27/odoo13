@@ -14,7 +14,8 @@
         'account',
     ],
     'data': [
-        'views/ir_sequence_views.xml'
+        'views/ir_sequence_views.xml',
+        'views/res_config_settings_views.xml'
     ],
     'installable': True,
     'application': False,
