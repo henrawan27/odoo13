@@ -1,0 +1,1207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <menuitem id="account_reports_mpn_reports"
+                  name="MPN Reports"
+                  parent="account.menu_finance_reports"
+                  sequence="5"
+                  groups="account.group_account_user"
+        />
+
+        <record id="account_financial_report_profitandloss_mpn" model="account.financial.html.report">
+            <field name="name">MPN Profit and Loss</field>
+            <field name="debit_credit" eval="False"/>
+            <field name="analytic" eval="True"/>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name="show_journal_filter" eval="True"/>
+            <field name='parent_id' ref='mpn_account_fix.account_reports_mpn_reports'/>
+        </record>
+
+        <record id="account_financial_report_balancesheet_mpn" model="account.financial.html.report">
+            <field name="name">MPN Balance Sheet</field>
+            <field name="debit_credit" eval="False"/>
+            <field name="date_range" eval="False"/>
+            <field name="analytic" eval="True"/>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name="show_journal_filter" eval="True"/>
+            <field name='parent_id' ref='mpn_account_fix.account_reports_mpn_reports'/>
+        </record>
+
+        <record id="account_financial_report_executivesummary_mpn" model="account.financial.html.report">
+            <field name="name">MPN Executive Summary</field>
+            <field name='parent_id' ref='mpn_account_fix.account_reports_mpn_reports'/>
+        </record>
+
+        <record id="account_financial_report_line_aset_ASSET" model="account.financial.html.report.line">
+            <field name="name">ASET</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_balancesheet_mpn"/>
+            <field name="code">ASSET</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = ASET_LANCAR.balance + ASET_TIDAK_LANCAR.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_kewajiban&amp;ekuitas_KEWAJIBAN_EKUITAS" model="account.financial.html.report.line">
+            <field name="name">KEWAJIBAN &amp; EKUITAS</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_balancesheet_mpn"/>
+            <field name="code">KEWAJIBAN_EKUITAS</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="False"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = KEWAJIBAN.balance + EKUITAS.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_totalbalance_False" model="account.financial.html.report.line">
+            <field name="name">TOTAL BALANCE</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_balancesheet_mpn"/>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="False"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = ASSET.balance - KEWAJIBAN_EKUITAS.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_mpncash_False" model="account.financial.html.report.line">
+            <field name="name">Cash</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_executivesummary_mpn"/>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_mpnprofitability_False" model="account.financial.html.report.line">
+            <field name="name">Profitability</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_executivesummary_mpn"/>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_mpnbalancesheet_False" model="account.financial.html.report.line">
+            <field name="name">Balance Sheet</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_executivesummary_mpn"/>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_mpnperformance_False" model="account.financial.html.report.line">
+            <field name="name">Performance</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_executivesummary_mpn"/>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_mpnposition_False" model="account.financial.html.report.line">
+            <field name="name">Position</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_executivesummary_mpn"/>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pendapatanusaha_PENDAPATAN_USAHA" model="account.financial.html.report.line">
+            <field name="name">PENDAPATAN USAHA</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_profitandloss_mpn"/>
+            <field name="code">PENDAPATAN_USAHA</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = PEN_SEWA_EDC.balance + PEN_SOFT_EDC.balance + PEN_NSICCS.balance + PEN_PEL_EDC.balance + PEN_SEWA_ATM.balance + PEN_MOB_COLL.balance + PEN_LAIN.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_bebanusaha_BEBAN_USAHA" model="account.financial.html.report.line">
+            <field name="name">BEBAN USAHA</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_profitandloss_mpn"/>
+            <field name="code">BEBAN_USAHA</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = B_PENY.balance + B_SEWA_GUNA_USAHA.balance + B_BUNGA_PINJAMAN_BPRKS.balance + B_NSICCS.balance + B_PEL_EDC.balance + N_SEWA_PEN_ATM.balance + B_MOB_COLL.balance + B_INET.balance + B_LAIN.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_laba(rugi)kotor_LR_KOTOR" model="account.financial.html.report.line">
+            <field name="name">LABA (RUGI) KOTOR</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_profitandloss_mpn"/>
+            <field name="code">LR_KOTOR</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = PENDAPATAN_USAHA.balance - BEBAN_USAHA.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI" model="account.financial.html.report.line">
+            <field name="name">BEBAN ADMINISTRASI</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_profitandloss_mpn"/>
+            <field name="code">BEBAN_ADMINISTRASI</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance= GAJI.balance + INSENTIF.balance + PROMOSI.balance + PER_KAN.balance + LIS_AIR_TEL.balance + PENGIRIMAN.balance + CETAKAN.balance + PERJ_DINAS.balance + TENAGA_AHLI.balance + PEND_LAT.balance + SEWA.balance + PENYUSUTAN.balance + AMORTISASI.balance + LAIN.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_laba(rugi)operasi_LR_OPERASI" model="account.financial.html.report.line">
+            <field name="name">LABA (RUGI) OPERASI</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_profitandloss_mpn"/>
+            <field name="code">LR_OPERASI</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = LR_KOTOR.balance - BEBAN_ADMINISTRASI.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pendapatan(beban)lain_PENDAPATAN_BEBAN_LAIN" model="account.financial.html.report.line">
+            <field name="name">PENDAPATAN (BEBAN) LAIN</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_profitandloss_mpn"/>
+            <field name="code">PENDAPATAN_BEBAN_LAIN</field>
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = BUNGA_BANK.balance + ADMIN_BANK.balance + PEN_B_LAIN.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_laba(rugi)sebelumpajak_LR_SEBELUM_PAJAK" model="account.financial.html.report.line">
+            <field name="name">LABA (RUGI) SEBELUM PAJAK</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_profitandloss_mpn"/>
+            <field name="code">LR_SEBELUM_PAJAK</field>
+            <field name="sequence" eval="7"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = LR_OPERASI.balance + PENDAPATAN_BEBAN_LAIN.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pajakpenghasilan_PAJAK_PENGHASILAN" model="account.financial.html.report.line">
+            <field name="name">PAJAK PENGHASILAN</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_profitandloss_mpn"/>
+            <field name="code">PAJAK_PENGHASILAN</field>
+            <field name="sequence" eval="8"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Pajak Penghasilan')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_laba(rugi)tahunberjalan_LR_TAHUN_BERJALAN" model="account.financial.html.report.line">
+            <field name="name">LABA (RUGI) TAHUN BERJALAN</field>
+            <field name="financial_report_id" ref="mpn_account_fix.account_financial_report_profitandloss_mpn"/>
+            <field name="code">LR_TAHUN_BERJALAN</field>
+            <field name="sequence" eval="9"/>
+            <field name="level" eval="0"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = LR_SEBELUM_PAJAK.balance - PAJAK_PENGHASILAN.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_asetlancar_ASET_LANCAR" model="account.financial.html.report.line">
+            <field name="name">ASET LANCAR</field>
+            <field name="code">ASET_LANCAR</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_aset_ASSET"/>
+            <field name="level" eval="1"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = KB.balance + PU.balance + KL.balance + PS.balance + UMP.balance + BDD.balance + PDD.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_asettidaklancar_ASET_TIDAK_LANCAR" model="account.financial.html.report.line">
+            <field name="name">ASET TIDAK LANCAR</field>
+            <field name="code">ASET_TIDAK_LANCAR</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_aset_ASSET"/>
+            <field name="level" eval="1"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = AT.balance + APP.balance + ATB.balance + INVES.balance + JAM.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_cashreceived_CR_MPN" model="account.financial.html.report.line">
+            <field name="name">Cash received</field>
+            <field name="code">CR_MPN</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpncash_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">never</field>
+            <field name="formulas">balance = sum.debit</field>
+            <field name="domain">[('account_id.user_type_id.type', '=', 'liquidity'), ('account_id.code', 'not in', ['371.01.003'])]</field>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_report_line_cashspent_CS_MPN" model="account.financial.html.report.line">
+            <field name="name">Cash spent</field>
+            <field name="code">CS_MPN</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpncash_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="False"/>
+            <field name="show_domain">never</field>
+            <field name="formulas">balance = -sum.credit</field>
+            <field name="domain">[('account_id.user_type_id.type', '=', 'liquidity'), ('account_id.code', 'not in', ['371.01.003'])]</field>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_report_line_cashsurplus_False" model="account.financial.html.report.line">
+            <field name="name">Cash surplus</field>
+            <field name="sequence" eval="3"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpncash_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = CR_MPN.balance + CS_MPN.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_closingbankbalance_False" model="account.financial.html.report.line">
+            <field name="name">Closing bank balance</field>
+            <field name="sequence" eval="4"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpncash_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.type', '=', 'liquidity'), ('account_id.code', 'not in', ['371.01.003'])]</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_income_False" model="account.financial.html.report.line">
+            <field name="name">Income</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnprofitability_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = PENDAPATAN_USAHA.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_costofrevenue_False" model="account.financial.html.report.line">
+            <field name="name">Cost of Revenue</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnprofitability_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="False"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = COS.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_grossprofit_False" model="account.financial.html.report.line">
+            <field name="name">Gross profit</field>
+            <field name="sequence" eval="3"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnprofitability_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = LR_KOTOR.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_expenses_False" model="account.financial.html.report.line">
+            <field name="name">Expenses</field>
+            <field name="sequence" eval="4"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnprofitability_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="False"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = BEBAN_USAHA.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_netprofit_False" model="account.financial.html.report.line">
+            <field name="name">Net Profit</field>
+            <field name="sequence" eval="5"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnprofitability_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = LR_TAHUN_BERJALAN.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_receivables_DEB_MPN" model="account.financial.html.report.line">
+            <field name="name">Receivables</field>
+            <field name="code">DEB_MPN</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnbalancesheet_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">never</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.type', '=', 'receivable')]</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_payables_CRE_MPN" model="account.financial.html.report.line">
+            <field name="name">Payables</field>
+            <field name="code">CRE_MPN</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnbalancesheet_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="False"/>
+            <field name="show_domain">never</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.type', '=', 'payable')]</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_netassets_False" model="account.financial.html.report.line">
+            <field name="name">Net assets</field>
+            <field name="sequence" eval="3"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnbalancesheet_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = ASSET.balance - KEWAJIBAN.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_grossprofitmargin(grossprofit/operatingincome)_False" model="account.financial.html.report.line">
+            <field name="name">Gross profit margin (gross profit / operating income)</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnperformance_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = LR_KOTOR.balance / OPINC_MPN.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_netprofitmargin(netprofit/income)_False" model="account.financial.html.report.line">
+            <field name="name">Net profit margin (net profit / income)</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnperformance_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = LR_TAHUN_BERJALAN.balance / PENDAPATAN_USAHA.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_returnoninvestments(netprofit/assets)_False" model="account.financial.html.report.line">
+            <field name="name">Return on investments (net profit / assets)</field>
+            <field name="sequence" eval="3"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnperformance_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = LR_TAHUN_BERJALAN.balance / ASSET.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_averagedebtorsdays_False" model="account.financial.html.report.line">
+            <field name="name">Average debtors days</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnposition_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="False"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = PU.balance / OPINC_MPN.balance * NDays</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_averagecreditorsdays_False" model="account.financial.html.report.line">
+            <field name="name">Average creditors days</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnposition_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="False"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = -HU.balance / OPINC_MPN.balance * NDays</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_shorttermcashforecast_False" model="account.financial.html.report.line">
+            <field name="name">Short term cash forecast</field>
+            <field name="sequence" eval="3"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnposition_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = PU.balance + HU.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_currentassetstoliabilities_False" model="account.financial.html.report.line">
+            <field name="name">Current assets to liabilities</field>
+            <field name="sequence" eval="4"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_mpnposition_False"/>
+            <field name="level" eval="3"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = CA.balance / CL.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_kewajiban_KEWAJIBAN" model="account.financial.html.report.line">
+            <field name="name">KEWAJIBAN</field>
+            <field name="code">KEWAJIBAN</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_kewajiban&amp;ekuitas_KEWAJIBAN_EKUITAS"/>
+            <field name="level" eval="1"/>
+            <field name="green_on_positive" eval="False"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = HU.balance + HP.balance + HB.balance + BDB.balance + HSGU.balance + PEN_DD.balance + HL.balance + TTP.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_ekuitas_EKUITAS" model="account.financial.html.report.line">
+            <field name="name">EKUITAS</field>
+            <field name="code">EKUITAS</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_kewajiban&amp;ekuitas_KEWAJIBAN_EKUITAS"/>
+            <field name="level" eval="1"/>
+            <field name="green_on_positive" eval="False"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = MS.balance + MTD.balance + SLBTL.balance + LBTB.balance</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pendapatansewaedc_PEN_SEWA_EDC" model="account.financial.html.report.line">
+            <field name="name">Pendapatan Sewa EDC</field>
+            <field name="code">PEN_SEWA_EDC</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_pendapatanusaha_PENDAPATAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', 'in', ['Pendapatan Sewa','Pendapatan Sewa Bank Lain'])]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pendapatansoftwareedc_PEN_SOFT_EDC" model="account.financial.html.report.line">
+            <field name="name">Pendapatan Software EDC</field>
+            <field name="code">PEN_SOFT_EDC</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_pendapatanusaha_PENDAPATAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Pendapatan Jasa Layanan')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pendapatannsiccs_PEN_NSICCS" model="account.financial.html.report.line">
+            <field name="name">Pendapatan NSICCS</field>
+            <field name="code">PEN_NSICCS</field>
+            <field name="sequence" eval="3"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_pendapatanusaha_PENDAPATAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Pendapatan NSICCS')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pendapatanpelepasanedc_PEN_PEL_EDC" model="account.financial.html.report.line">
+            <field name="name">Pendapatan Pelepasan EDC</field>
+            <field name="code">PEN_PEL_EDC</field>
+            <field name="sequence" eval="4"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_pendapatanusaha_PENDAPATAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Penjualan EDC')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pendapatansewaatm_PEN_SEWA_ATM" model="account.financial.html.report.line">
+            <field name="name">Pendapatan Sewa ATM</field>
+            <field name="code">PEN_SEWA_ATM</field>
+            <field name="sequence" eval="5"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_pendapatanusaha_PENDAPATAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Pendapatan ATM')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pendapatanmobilecollection_PEN_MOB_COLL" model="account.financial.html.report.line">
+            <field name="name">Pendapatan Mobile Collection</field>
+            <field name="code">PEN_MOB_COLL</field>
+            <field name="sequence" eval="6"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_pendapatanusaha_PENDAPATAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Pendapatan Mobile Collection')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pendapatanlainnya_PEN_LAIN" model="account.financial.html.report.line">
+            <field name="name">Pendapatan Lainnya</field>
+            <field name="code">PEN_LAIN</field>
+            <field name="sequence" eval="7"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_pendapatanusaha_PENDAPATAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Pendapatan Lainnya')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_bebanpenyusutan_B_PENY" model="account.financial.html.report.line">
+            <field name="name">Beban Penyusutan</field>
+            <field name="code">B_PENY</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanusaha_BEBAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.code', 'in', ['611.01.002','761.01.006','761.01.007'])]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_bebansewagunausaha_B_SEWA_GUNA_USAHA" model="account.financial.html.report.line">
+            <field name="name">Beban Sewa Guna Usaha</field>
+            <field name="code">B_SEWA_GUNA_USAHA</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanusaha_BEBAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.code', 'in', ['651.01.001','651.01.002'])]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_bebanbungapinjamanbprks_B_BUNGA_PINJAMAN_BPRKS" model="account.financial.html.report.line">
+            <field name="name">Beban Bunga Pinjaman (BPRKS)</field>
+            <field name="code">B_BUNGA_PINJAMAN_BPRKS</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanusaha_BEBAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.code', 'in', ['651.01.003', '651.01.004'])]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_bebannsiccs_B_NSICCS" model="account.financial.html.report.line">
+            <field name="name">Beban NSICCS</field>
+            <field name="code">B_NSICCS</field>
+            <field name="sequence" eval="3"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanusaha_BEBAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Beban NSICCS')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_bebanpelepasanedc_B_PEL_EDC" model="account.financial.html.report.line">
+            <field name="name">Beban Pelepasan EDC</field>
+            <field name="code">B_PEL_EDC</field>
+            <field name="sequence" eval="4"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanusaha_BEBAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Beban Pelepasan EDC')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_bebansewadanpendapatanatm_N_SEWA_PEN_ATM" model="account.financial.html.report.line">
+            <field name="name">Beban Sewa dan Pendapatan ATM</field>
+            <field name="code">N_SEWA_PEN_ATM</field>
+            <field name="sequence" eval="5"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanusaha_BEBAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', 'in', ['Beban Penagihan EDC',	'Beban ATM'])]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_bebanmobilecollection_B_MOB_COLL" model="account.financial.html.report.line">
+            <field name="name">Beban Mobile Collection</field>
+            <field name="code">B_MOB_COLL</field>
+            <field name="sequence" eval="6"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanusaha_BEBAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Beban Mobile Collection')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_bebaninternet&amp;telekomunikasi_B_INET" model="account.financial.html.report.line">
+            <field name="name">Beban Internet &amp; Telekomunikasi</field>
+            <field name="code">B_INET</field>
+            <field name="sequence" eval="7"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanusaha_BEBAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', 'in', ['Beban Internet dan Telekomunikasi', 'Beban Internet &amp; Telekomunikasi'])]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_bebanlain_B_LAIN" model="account.financial.html.report.line">
+            <field name="name">Beban Lain</field>
+            <field name="code">B_LAIN</field>
+            <field name="sequence" eval="8"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanusaha_BEBAN_USAHA"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Beban Lain')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_gaji_GAJI" model="account.financial.html.report.line">
+            <field name="name">Gaji</field>
+            <field name="code">GAJI</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Gaji')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_insentif_INSENTIF" model="account.financial.html.report.line">
+            <field name="name">Insentif</field>
+            <field name="code">INSENTIF</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Insentif')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_promosi_PROMOSI" model="account.financial.html.report.line">
+            <field name="name">Promosi</field>
+            <field name="code">PROMOSI</field>
+            <field name="sequence" eval="3"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Promosi')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_perlengkapankantor_PER_KAN" model="account.financial.html.report.line">
+            <field name="name">Perlengkapan Kantor</field>
+            <field name="code">PER_KAN</field>
+            <field name="sequence" eval="4"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Perlengkapan Kantor')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_listrik,airdantelepon_LIS_AIR_TEL" model="account.financial.html.report.line">
+            <field name="name">Listrik, Air dan Telepon</field>
+            <field name="code">LIS_AIR_TEL</field>
+            <field name="sequence" eval="5"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Listrik, Air dan Telepon')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pengiriman_PENGIRIMAN" model="account.financial.html.report.line">
+            <field name="name">Pengiriman</field>
+            <field name="code">PENGIRIMAN</field>
+            <field name="sequence" eval="6"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Pengiriman')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_cetakan_CETAKAN" model="account.financial.html.report.line">
+            <field name="name">Cetakan</field>
+            <field name="code">CETAKAN</field>
+            <field name="sequence" eval="7"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Cetakan')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_perjalanandinas_PERJ_DINAS" model="account.financial.html.report.line">
+            <field name="name">Perjalanan Dinas</field>
+            <field name="code">PERJ_DINAS</field>
+            <field name="sequence" eval="8"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Perjalanan Dinas')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_tenagaahli_TENAGA_AHLI" model="account.financial.html.report.line">
+            <field name="name">Tenaga Ahli</field>
+            <field name="code">TENAGA_AHLI</field>
+            <field name="sequence" eval="9"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Tenaga Ahli')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pendidikanlatihan_PEND_LAT" model="account.financial.html.report.line">
+            <field name="name">Pendidikan Latihan</field>
+            <field name="code">PEND_LAT</field>
+            <field name="sequence" eval="10"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Pendidikan Latihan')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_sewa_SEWA" model="account.financial.html.report.line">
+            <field name="name">Sewa</field>
+            <field name="code">SEWA</field>
+            <field name="sequence" eval="11"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Sewa')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_penyusutan_PENYUSUTAN" model="account.financial.html.report.line">
+            <field name="name">Penyusutan</field>
+            <field name="code">PENYUSUTAN</field>
+            <field name="sequence" eval="12"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Penyusutan')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_amortisasi_AMORTISASI" model="account.financial.html.report.line">
+            <field name="name">Amortisasi</field>
+            <field name="code">AMORTISASI</field>
+            <field name="sequence" eval="13"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Amortisasi')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_lainnya_LAIN" model="account.financial.html.report.line">
+            <field name="name">Lainnya</field>
+            <field name="code">LAIN</field>
+            <field name="sequence" eval="14"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_bebanadministrasi_BEBAN_ADMINISTRASI"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Lainnya')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_bungabank_BUNGA_BANK" model="account.financial.html.report.line">
+            <field name="name">Bunga Bank</field>
+            <field name="code">BUNGA_BANK</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_pendapatan(beban)lain_PENDAPATAN_BEBAN_LAIN"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance *-1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Bunga Bank')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_adminbank_ADMIN_BANK" model="account.financial.html.report.line">
+            <field name="name">Admin Bank</field>
+            <field name="code">ADMIN_BANK</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_pendapatan(beban)lain_PENDAPATAN_BEBAN_LAIN"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance *-1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Admin Bank')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pendapatanbebanlain_PEN_B_LAIN" model="account.financial.html.report.line">
+            <field name="name">Pendapatan Beban Lain</field>
+            <field name="code">PEN_B_LAIN</field>
+            <field name="sequence" eval="3"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_pendapatan(beban)lain_PENDAPATAN_BEBAN_LAIN"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance *-1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Pendapatan Beban Lain')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_kasdansetarakas_KB" model="account.financial.html.report.line">
+            <field name="name">Kas dan Setara Kas</field>
+            <field name="code">KB</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_asetlancar_ASET_LANCAR"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Kas dan Setara Kas')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_piutangusaha_PU" model="account.financial.html.report.line">
+            <field name="name">Piutang Usaha</field>
+            <field name="code">PU</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_asetlancar_ASET_LANCAR"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Piutang Usaha')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_piutanglain_KL" model="account.financial.html.report.line">
+            <field name="name">Piutang Lain</field>
+            <field name="code">KL</field>
+            <field name="sequence" eval="3"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_asetlancar_ASET_LANCAR"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Piutang Lain')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_persediaan_PS" model="account.financial.html.report.line">
+            <field name="name">Persediaan</field>
+            <field name="code">PS</field>
+            <field name="sequence" eval="4"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_asetlancar_ASET_LANCAR"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Persediaan')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_uangmukapembelian_UMP" model="account.financial.html.report.line">
+            <field name="name">Uang Muka Pembelian</field>
+            <field name="code">UMP</field>
+            <field name="sequence" eval="5"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_asetlancar_ASET_LANCAR"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Uang Muka Pembelian')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_biayadibayardimuka_BDD" model="account.financial.html.report.line">
+            <field name="name">Biaya Dibayar Dimuka</field>
+            <field name="code">BDD</field>
+            <field name="sequence" eval="6"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_asetlancar_ASET_LANCAR"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Biaya Dibayar Dimuka')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pajakdibayardimuka_PDD" model="account.financial.html.report.line">
+            <field name="name">Pajak Dibayar Dimuka</field>
+            <field name="code">PDD</field>
+            <field name="sequence" eval="7"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_asetlancar_ASET_LANCAR"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Pajak Dibayar Dimuka')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_asettetap_AT" model="account.financial.html.report.line">
+            <field name="name">Aset Tetap</field>
+            <field name="code">AT</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_asettidaklancar_ASET_TIDAK_LANCAR"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Aset Tetap')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_asetpengampunanpajak_APP" model="account.financial.html.report.line">
+            <field name="name">Aset Pengampunan Pajak</field>
+            <field name="code">APP</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_asettidaklancar_ASET_TIDAK_LANCAR"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Aset Pengampunan Pajak')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_asettidakberwujud_ATB" model="account.financial.html.report.line">
+            <field name="name">Aset Tidak Berwujud</field>
+            <field name="code">ATB</field>
+            <field name="sequence" eval="3"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_asettidaklancar_ASET_TIDAK_LANCAR"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Aset Tidak Berwujud')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_investasi_INVES" model="account.financial.html.report.line">
+            <field name="name">Investasi</field>
+            <field name="code">INVES</field>
+            <field name="sequence" eval="4"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_asettidaklancar_ASET_TIDAK_LANCAR"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Investasi')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_jaminan_JAM" model="account.financial.html.report.line">
+            <field name="name">Jaminan</field>
+            <field name="code">JAM</field>
+            <field name="sequence" eval="5"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_asettidaklancar_ASET_TIDAK_LANCAR"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Jaminan')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_False_OPINC_MPN" model="account.financial.html.report.line">
+            <field name="code">OPINC_MPN</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="4"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="domain">[('account_id.user_type_id.internal_group', '=', 'income')]</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_hutangusaha_HU" model="account.financial.html.report.line">
+            <field name="name">Hutang Usaha</field>
+            <field name="code">HU</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_kewajiban_KEWAJIBAN"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Hutang Usaha')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_hutangpajak_HP" model="account.financial.html.report.line">
+            <field name="name">Hutang Pajak</field>
+            <field name="code">HP</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_kewajiban_KEWAJIBAN"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Hutang Pajak')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_hutangbank_HB" model="account.financial.html.report.line">
+            <field name="name">Hutang Bank</field>
+            <field name="code">HB</field>
+            <field name="sequence" eval="3"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_kewajiban_KEWAJIBAN"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Hutang Bank')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_biayayangmasihharusdibayar_BDB" model="account.financial.html.report.line">
+            <field name="name">Biaya Yang Masih Harus Dibayar</field>
+            <field name="code">BDB</field>
+            <field name="sequence" eval="4"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_kewajiban_KEWAJIBAN"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Biaya Yang Masih Harus Dibayar')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_hutangsewagunausaha_HSGU" model="account.financial.html.report.line">
+            <field name="name">Hutang Sewa Guna Usaha</field>
+            <field name="code">HSGU</field>
+            <field name="sequence" eval="5"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_kewajiban_KEWAJIBAN"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Hutang Sewa Guna Usaha')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_pendapatanditerimadimuka_PEN_DD" model="account.financial.html.report.line">
+            <field name="name">Pendapatan Diterima Dimuka</field>
+            <field name="code">PEN_DD</field>
+            <field name="sequence" eval="6"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_kewajiban_KEWAJIBAN"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Pendapatan Diterima Dimuka')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_hutanglain_HL" model="account.financial.html.report.line">
+            <field name="name">Hutang Lain</field>
+            <field name="code">HL</field>
+            <field name="sequence" eval="7"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_kewajiban_KEWAJIBAN"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Hutang Lain')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_titipan_TTP" model="account.financial.html.report.line">
+            <field name="name">Titipan</field>
+            <field name="code">TTP</field>
+            <field name="sequence" eval="8"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_kewajiban_KEWAJIBAN"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Titipan')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_modal_MS" model="account.financial.html.report.line">
+            <field name="name">Modal</field>
+            <field name="code">MS</field>
+            <field name="sequence" eval="1"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_ekuitas_EKUITAS"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Modal')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_modaltambahandisetor_MTD" model="account.financial.html.report.line">
+            <field name="name">Modal Tambahan Disetor</field>
+            <field name="code">MTD</field>
+            <field name="sequence" eval="2"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_ekuitas_EKUITAS"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Modal Tambahan Disetor')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_saldolaba(rugi)tahunlalu_SLBTL" model="account.financial.html.report.line">
+            <field name="name">Saldo Laba (Rugi) Tahun Lalu</field>
+            <field name="code">SLBTL</field>
+            <field name="sequence" eval="3"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_ekuitas_EKUITAS"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = sum.balance * -1</field>
+            <field name="domain">[('account_id.user_type_id.name', '=', 'Laba (Rugi) Ditahan')]</field>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">normal</field>
+        </record>
+        <record id="account_financial_report_line_laba(rugi)tahunberjalan_LBTB" model="account.financial.html.report.line">
+            <field name="name">Laba (Rugi) Tahun Berjalan</field>
+            <field name="code">LBTB</field>
+            <field name="sequence" eval="4"/>
+            <field name="parent_id" ref="mpn_account_fix.account_financial_report_line_ekuitas_EKUITAS"/>
+            <field name="level" eval="2"/>
+            <field name="green_on_positive" eval="True"/>
+            <field name="show_domain">foldable</field>
+            <field name="formulas">balance = LR_TAHUN_BERJALAN.balance</field>
+            <field name="special_date_changer">from_fiscalyear</field>
+        </record>
+    </data>
+</odoo>
