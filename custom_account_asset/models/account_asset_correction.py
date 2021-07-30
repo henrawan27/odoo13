@@ -159,10 +159,10 @@ class AccountAssetCorrection(models.Model):
 
     move_id = fields.Many2one('account.move', string='Move ID')
     move_name = fields.Char(string='Journal Entries', compute=_compute_move_name)
-    asset_model = fields.Many2one('account.asset', string='Asset Model', required=True, tracking=True)
+    asset_model = fields.Many2one('account.asset', string='Asset Model', required=True, tracking=True, domain="[('state', '=', 'model'), ('asset_type', '=', 'purchase')]")
     create_journal_items = fields.Boolean(string='Create Journal Items',  tracking=True)
 
-    opening_asset_ids = fields.Many2many('account.asset', string='Opening Assets', domain="[('state', '!=', 'model')]")
+    opening_asset_ids = fields.Many2many('account.asset', string='Opening Assets', domain="[('state', '!=', 'model'), ('asset_type', '=', 'purchase')]")
 
     @api.onchange('asset_model')
     def _onchange_asset_model(self):

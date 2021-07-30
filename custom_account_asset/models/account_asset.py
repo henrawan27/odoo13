@@ -17,20 +17,23 @@ class AccountAsset(models.Model):
     @api.onchange('account_depreciation_id')
     def _onchange_account_depreciation_id(self):
         super(AccountAsset, self)._onchange_account_depreciation_id()
-        if self.compute_asset_based_opening:
+        if self.compute_asset_based_opening and self.asset_type == 'purchase':
             self._compute_amount_opening()
 
     def _set_value(self):
         super(AccountAsset, self)._set_value()
-        if self.compute_asset_based_opening:
+        if self.compute_asset_based_opening and self.asset_type == 'purchase':
             self._compute_amount_opening()
 
     def set_to_draft(self):
-        for record in self:
-            super(AccountAsset, record).set_to_draft()
-            record._set_value()
-            record.move_opening_ids = [(5, 0, 0)]
-            record.correction_opening_ids = [(5, 0, 0)]
+        if self.compute_asset_based_opening and self.asset_type == 'purchase':
+            for record in self:
+                super(AccountAsset, record).set_to_draft()
+                record._set_value()
+                record.move_opening_ids = [(5, 0, 0)]
+                record.correction_opening_ids = [(5, 0, 0)]
+        else:
+            super(AccountAsset, self).set_to_draft()
 
     # We need to override this method, because it's return the direct write function
     def compute_depreciation_board(self):
@@ -55,7 +58,7 @@ class AccountAsset(models.Model):
         for newline_vals in newlines:
 
             # Change only apply on this line to prevent old entries created
-            if self.compute_asset_based_opening and newline_vals['date'] < self.env.company.account_opening_date:
+            if self.compute_asset_based_opening and self.asset_type == 'purchase' and newline_vals['date'] < self.env.company.account_opening_date:
                 continue
 
             # no need of amount field, as it is computed and we don't want to trigger its inverse function
@@ -67,6 +70,9 @@ class AccountAsset(models.Model):
         return self.write({'depreciation_move_ids': commands})
 
     def validate(self):
+
+        if not self.env.company.compute_asset_based_opening or not self.asset_type == 'purchase':
+            return super(AccountAsset, self).validate()
 
         # Check if assets computed based opening
         # If yes, then match their opening amount
@@ -98,14 +104,14 @@ class AccountAsset(models.Model):
     # ---------------------------------------------------------------------------------
     @api.onchange('first_depreciation_date')
     def _onchange_first_depreciation_date(self):
-        if self.compute_asset_based_opening:
+        if self.compute_asset_based_opening and self.asset_type == 'purchase':
             self._compute_amount_opening()
 
     # This method is a copy of compute_depreciation_board method
     # but with assets initial values
     def _compute_amount_opening(self):
         for record in self:
-            if not record.compute_asset_based_opening:
+            if not record.compute_asset_based_opening or not record.asset_type == 'purchase':
                 record.amount_opening = 0.0
                 continue
 
@@ -174,8 +180,6 @@ class AccountAsset(models.Model):
         calculated_balance = sum(calculated_opening.mapped('amount_opening'))
         opening_balance = sum(inputted_opening.mapped('balance'))
         correction_balance = sum(correction_lines.mapped('balance')) + sum(move_lines.mapped('balance'))
-
-        print(calculated_balance, opening_balance, correction_balance)
 
         if abs((calculated_balance + correction_balance) - opening_balance) < abs((opening_balance + correction_balance) - calculated_balance):
             calculated_balance = calculated_balance + correction_balance

@@ -19,7 +19,7 @@
             <field name="inherit_id" ref="account_asset.view_account_asset_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook" position="before">
-                    <group string="Based Opening" attrs="{'invisible': [('compute_asset_based_opening', '=', False)]}">
+                    <group string="Based Opening" attrs="{'invisible': ['|', ('compute_asset_based_opening', '=', False), ('asset_type', '!=', 'purchase')]}">
                         <field name="compute_asset_based_opening" groups="base.group_no_one"/>
                         <field name="amount_opening"/>
                         <field name="move_opening_ids" widget="many2many_tags" groups="base.group_no_one"/>
