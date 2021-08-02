@@ -14,6 +14,7 @@
         'account',
     ],
     'data': [
+        'data/settings.xml',
         'views/ir_sequence_views.xml',
         'views/res_config_settings_views.xml'
     ],

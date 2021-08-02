@@ -11,7 +11,7 @@ class AccountMove(models.Model):
 
     account_opening_move_id = fields.Many2one('account.move', related='company_id.account_opening_move_id')
     create_as_opening = fields.Boolean(string='Create as Opening')
-    mark_reconcile = fields.Boolean(string='Mark Reconcile')
+    # mark_reconcile = fields.Boolean(string='Mark Reconcile')
     draft_number = fields.Char(string='Draft Number', compute=_compute_draft_number)
 
     @api.model

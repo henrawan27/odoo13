@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from odoo import models, fields, _
+from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 import calendar
 import pytz
@@ -14,6 +14,12 @@ class IrSequence(models.Model):
         required=True,
         default='year'
     )
+
+    @api.model
+    def change_format(self):
+        journals = self.env['account.journal'].search([])
+        for journal in journals:
+            journal.sequence_id.prefix = journal.code + '/%(roman_month)s/%(range_year)s/'
 
     def _create_date_range_seq(self, date):
         if self.reset_range == 'year':

@@ -9,3 +9,6 @@ class CompanySettings(models.TransientModel):
     def get_company_settings(self):
         product_price = self.env['decimal.precision'].search([('name', '=', 'Product Price')])
         product_price.write({'digits': 3})
+
+        currency = self.env['res.currency'].search([('name', '=', 'IDR')])
+        currency.write({'rounding': 0.010000})
