@@ -7,8 +7,4 @@ class AccountChartOfAccountReport(models.AbstractModel):
     @api.model
     def _get_lines(self, options, line_id=None):
         lines = super(AccountChartOfAccountReport, self)._get_lines(options, line_id=line_id)
-
-        for line in lines:
-            print(line)
-
         return lines
