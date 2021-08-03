@@ -1,0 +1,70 @@
+$o-font-size-base-touch: 15px;
+
+$o-home-menu-container-size: 850px;
+$o-home-menu-app-icon-max-width: 70px;
+$o-home-studio-menu-shadow: 0 1px 0 rgba(black, 0.45);
+
+$gray-200: #e9ecef !default;
+$gray-400: #ced4da !default;
+$gray-300: #dee2e6 !default;
+
+$font-weight-light: 300 !default;
+$o-gray-100: #f8f9fa; // This is BS default
+$o-brand-lightsecondary: $o-gray-100;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+
+$o-extra-grid-breakpoints: (
+    xs: 0,
+    vsm: 475px,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1534px,
+);
+
+@mixin o-text-overflow($display: inline-block, $max-width: 100%) {
+    display: $display;
+    max-width: $max-width;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top; // To update display context changed by overflow:hidden
+}
+
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+  $max: breakpoint-max($name, $breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin o-position-absolute($top: auto, $right: auto, $bottom: auto, $left: auto) {
+    position: absolute;
+    top: $top;
+    left: $left;
+    bottom: $bottom;
+    right: $right;
+}
