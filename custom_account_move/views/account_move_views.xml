@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_move_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+
+<!--                <xpath expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position="after">-->
+<!--					<field name="price_subtotal_rounded"/>-->
+<!--				</xpath>-->
+
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="account_opening_move_id" invisible="1"/>
+                    <field name="create_as_opening" attrs="{'invisible': ['|', ('account_opening_move_id', '!=', False), ('type', '!=', 'entry')]}"/>
+                    <field name="draft_number" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
