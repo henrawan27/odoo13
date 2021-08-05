@@ -8,11 +8,22 @@ class AccountMoveLine(models.Model):
 
     @api.onchange('price_subtotal_rounded')
     def _onchange_price_subtotal_rounded(self):
+<<<<<<< HEAD
         if self.quantity and not self.env.context.get('bypass'):
             self.price_unit = self.price_subtotal_rounded / self.quantity
+=======
+        if self.quantity:
+            currency = self.currency_id or self.env.company.currency_id
+            self.price_unit = currency.round(self.price_subtotal_rounded / self.quantity)
+>>>>>>> origin/master-staging
 
     # @api.model
     # def _get_price_total_and_subtotal_model(self, price_unit, quantity, discount, currency, product, partner, taxes, move_type):
     #     res = super(AccountMoveLine, self)._get_price_total_and_subtotal_model(price_unit, quantity, discount, currency, product, partner, taxes, move_type)
+<<<<<<< HEAD
     #     res['price_subtotal_rounded'] = res.get('price_subtotal', 0.0)
+=======
+    #     self.with_context(bypass=True).write({'price_subtotal_rounded': res.get('price_subtotal', 0.0)})
+    #     print('subtotal_rounded', self.price_subtotal_rounded)
+>>>>>>> origin/master-staging
     #     return res
