@@ -71,20 +71,21 @@ class AccountAsset(models.Model):
 
     def validate(self):
 
-        if not self.env.company.compute_asset_based_opening or not self.asset_type == 'purchase':
-            return super(AccountAsset, self).validate()
+        if not self.env.company.compute_asset_based_opening or not self.asset_type == 'purchase' or self.first_depreciation_date >= self.env.company.account_opening_date:
+            super(AccountAsset, self).validate()
+            for asset in self:
+                # re-write auto_post entries based options
+                asset.depreciation_move_ids.write({'auto_post': False})
+            return
 
-        # Check if assets computed based opening
-        # If yes, then match their opening amount
-        if self.env.company.compute_asset_based_opening:
+        # If assets computed based opening, match their opening amount
+        # Check if asset is forced to run
+        if not self.env.context.get('ignore_check'):
+            action = self.check_amount_opening()
 
-            # Check if asset is forced to run
-            if not self.env.context.get('ignore_check'):
-                action = self.check_amount_opening()
-
-                # if there's an action (means opening amount doesn't match, then display wizard)
-                if action:
-                    return action
+            # if there's an action (means opening amount doesn't match, then display wizard)
+            if action:
+                return action
 
         # Call the main function
         super(AccountAsset, self).validate()
@@ -92,13 +93,10 @@ class AccountAsset(models.Model):
             # re-write auto_post entries based options
             asset.depreciation_move_ids.write({'auto_post': self.env.context.get('auto_post')})
 
-        # Check if assets computed based opening
-        # If yes, then reduce book_value and value_residual
-        if self.env.company.compute_asset_based_opening:
-            for asset in self:
-                # Since some journal entries are not created, we must decrease their book and residual value
-                asset.book_value += asset.amount_opening
-                asset.value_residual += asset.amount_opening
+            # since some journal entries are not created,
+            # we must decrease their book and residual value
+            asset.book_value += asset.amount_opening
+            asset.value_residual += asset.amount_opening
 
     # NEW CREATED FUNCTION
     # ---------------------------------------------------------------------------------
@@ -227,9 +225,7 @@ class AccountAsset(models.Model):
     def action_check(self):
         # Check if there's different state and asset models
         context = self.env.context
-        self.with_context(context)._check_action_validation(
-            valid_state=context.get('valid_state')
-        )
+        self.with_context(context)._check_action_validation(valid_state=context.get('valid_state'))
 
         if context.get('validate'):
             return self.with_context(context).validate()
@@ -262,6 +258,7 @@ class AccountAsset(models.Model):
         if any([len(accounts) != 1 for accounts in [account_asset_ids, account_depreciation_ids, account_depreciation_expense_ids]]):
             raise ValidationError(_('Cannot run action with different accounts!'))
 
+    model_id = fields.Many2one('account.asset', string='Model', change_default=True, readonly=True, states={'draft': [('readonly', False)]}, domain="[('company_id', '=', company_id), ('state', '=', 'model')]")
     amount_opening = fields.Monetary(string='Opening Amount', currency_field='currency_id', compute=_compute_amount_opening)
     compute_asset_based_opening = fields.Boolean(related='company_id.compute_asset_based_opening', string='Compute Asset based Opening')
     move_opening_ids = fields.Many2many('account.move', string='Opening Journal Entries', domain="[('type', '=', 'entry')]")
