@@ -9,8 +9,8 @@
             <field name="report_minus_bracket" eval="1"/>
             <field name="compute_asset_based_opening" eval="1"/>
             <field name="totals_below_sections" eval="0"/>
-            <field name="sale_tax_id" ref="mpn_settings.tax_vat_10_out"/>
-            <field name="purchase_tax_id" ref="mpn_settings.tax_vat_10_in"/>
+<!--            <field name="sale_tax_id" ref="mpn_settings.tax_vat_10_out"/>-->
+<!--            <field name="purchase_tax_id" ref="mpn_settings.tax_vat_10_in"/>-->
         </record>
     </data>
 </odoo>

@@ -23,7 +23,7 @@
         # 'l10n_id_mpn_chart'
     ],
     'data': [
-        'data/account_tax_data.xml',
+        # 'data/account_tax_data.xml',
         'data/company_settings.xml',
     ],
     'installable': True,
