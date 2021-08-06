@@ -1,7 +1,7 @@
-from odoo.addons.account_check_printing.tests.test_print_check import TestPrintCheck
 # Make sure / performs a floating point division even if environment is python 2
 from __future__ import division
 
+from odoo.addons.account_check_printing.tests.test_print_check import TestPrintCheck
 from odoo.addons.account.tests.account_test_classes import AccountingTestCase
 from odoo.addons.account_check_printing.models.account_payment import INV_LINES_PER_STUB
 from odoo.tests import tagged
