@@ -18,7 +18,7 @@
         'views/account_asset_correction_views.xml',
         'views/account_move_views.xml',
         'views/res_config_settings_views.xml',
-        'wizard/account_asset_validate_confirm_views.xml'
+        'wizard/account_asset_validate_confirm_views.xml',
     ],
     "images": [],
     'demo': [],
