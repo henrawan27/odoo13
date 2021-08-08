@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+		<record id="base.IDR" model="res.currency">
+			<field name="name">IDR</field>
+            <field name="symbol">Rp</field>
+            <field name="rounding">0.01</field>
+            <field name="position">before</field>
+            <field name="active" eval="True"/>
+            <field name="currency_unit_label">Rupiah</field>
+            <field name="currency_subunit_label">Sen</field>
+		</record>
+
+		<record id="base.USD" model="res.currency">
+            <field name="name">USD</field>
+            <field name="symbol">$</field>
+            <field name="rounding">0.01</field>
+            <field name="position">before</field>
+			<field name="active" eval="False"/>
+            <field name="currency_unit_label">Dollars</field>
+            <field name="currency_subunit_label">Cents</field>
+        </record>
+	</data>
+</odoo>
