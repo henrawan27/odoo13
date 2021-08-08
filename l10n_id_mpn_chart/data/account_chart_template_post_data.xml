@@ -4,5 +4,8 @@
         <field name="property_account_receivable_id" ref="a_x_121_01_001"/>
         <field name="property_account_payable_id" ref="a_x_371_99_999"/>
         <field name="use_anglo_saxon" eval="1"/>
+
+        <field name="property_account_expense_categ_id" ref="a_x_611_01_007"/>
+        <field name="property_account_income_categ_id" ref="a_x_381_01_001"/>
     </record>
 </odoo>

@@ -9,7 +9,7 @@
     'summary': "MPN Chart Template",
     'website': 'https://www.dwidasa.com',
     'email': 'community@dwidasa.com',
-    'depends': ['account', 'base_iban', 'base_vat', 'l10n_generic_coa'],
+    'depends': ['account', 'base_iban', 'base_vat'],
     'license': 'LGPL-3',
     'data': [
         'data/account_account_type_data.xml',
