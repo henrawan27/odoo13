@@ -12,6 +12,7 @@
     'depends': ['account', 'base_iban', 'base_vat'],
     'license': 'LGPL-3',
     'data': [
+        'l10n_generic_coa',
         'data/account_account_type_data.xml',
         'data/account_chart_template_data.xml',
         'data/account.account.template.csv',
