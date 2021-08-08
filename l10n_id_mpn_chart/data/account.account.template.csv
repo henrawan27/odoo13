@@ -229,3 +229,4 @@
 "a_x_821_04_002","821.04.002","BEBAN KARYAWAN","l10n_id_mpn_chart.data_account_type_pendapatan_beban_lain",FALSE,"l10n_id_mpn_chart"
 "a_x_821_99_001","821.99.001","BIAYA MATERAI","l10n_id_mpn_chart.data_account_type_admin_bank",FALSE,"l10n_id_mpn_chart"
 "a_x_899_99_001","899.99.001","PAJAK PENGHASILAN","l10n_id_mpn_chart.data_account_type_pajak_penghasilan",FALSE,"l10n_id_mpn_chart"
+"temp_account","000.00.000","TEMP ACCOUNT","l10n_id_mpn_chart.data_account_type_pajak_penghasilan",FALSE,"l10n_id_mpn_chart"

@@ -5,7 +5,18 @@
         <field name="property_account_payable_id" ref="a_x_371_99_999"/>
         <field name="use_anglo_saxon" eval="1"/>
 
-        <field name="property_account_expense_categ_id" ref="a_x_611_01_007"/>
-        <field name="property_account_income_categ_id" ref="a_x_381_01_001"/>
+        <field name="property_account_expense_categ_id" ref="temp_account"/>
+        <field name="property_account_income_categ_id" ref="temp_account"/>
+
+        <field name="property_stock_account_input_categ_id" ref="temp_account"/>
+        <field name="property_stock_account_output_categ_id" ref="temp_account"/>
+        <field name="property_stock_valuation_account_id" ref="temp_account"/>
+
+        <field name="income_currency_exchange_account_id" ref="temp_account"/>
+        <field name="expense_currency_exchange_account_id" ref="temp_account"/>
+
+        <field name="default_cash_difference_income_account_id" ref="temp_account"/>
+        <field name="default_cash_difference_expense_account_id" ref="temp_account"/>
+        <field name="default_pos_receivable_account_id" ref="temp_account"/>
     </record>
 </odoo>
