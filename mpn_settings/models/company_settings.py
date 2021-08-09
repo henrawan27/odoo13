@@ -1,6 +1,7 @@
 from odoo import models, api
 
 
+<<<<<<< HEAD
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
@@ -29,3 +30,13 @@ class ResCompany(models.Model):
         # install Indonesian language
         language = self.env['base.language.install'].create({'lang': 'id_ID', 'overwrite': True})
         language.lang_install()
+=======
+class CompanySettings(models.TransientModel):
+    _name = 'extra.company.settings'
+    _description = 'Company Settings'
+
+    @api.model
+    def get_company_settings(self):
+        product_price = self.env['decimal.precision'].search([('name', '=', 'Product Price')])
+        product_price.write({'digits': 3})
+>>>>>>> 2f1d31a4a7c3e8cba3cbb07060385a360e43804a
