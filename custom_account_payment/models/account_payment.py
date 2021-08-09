@@ -174,10 +174,16 @@ class AccountPayment(models.Model):
                 export_ids.append(line_id.id)
             payment.export_line_ids = [(6, 0, export_ids)]
 
+    def post_origin_state(self):
+        records = self.filtered(lambda x: x.origin_state == 'posted' and x.state == 'draft').sorted(key=lambda x: x.payment_date)
+        if records:
+            records.post()
+
     tax_ids = fields.Many2many('account.tax', string='Taxes', domain="[('tax_exigibility', '=', 'on_payment_custom')]", default=_default_tax_ids)
     dpp_amount = fields.Monetary(string='DPP Amount', currency_field='currency_id', default=_default_dpp_amount)
     use_custom_cash_basis_taxes = fields.Boolean(related='company_id.use_custom_cash_basis_taxes', string='Use Custom Cash Basis Taxes')
     export_line_ids = fields.One2many('payment.export.line', 'payment_id', string='Export Lines', compute=_compute_export_line_ids)
+    origin_state = fields.Selection([('draft', 'Draft'), ('posted', 'Validated'), ('sent', 'Sent'), ('reconciled', 'Reconciled'), ('cancelled', 'Cancelled')], string="Origin Status")
 
 
 class PaymentExportLine(models.Model):
