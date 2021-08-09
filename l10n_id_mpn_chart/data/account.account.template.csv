@@ -142,7 +142,11 @@
 "a_x_611_01_007","611.01.007","BEBAN PENJUALAN LAIN-LAIN","l10n_id_mpn_chart.data_account_type_beban_lain",FALSE,"l10n_id_mpn_chart"
 "a_x_611_01_008","611.01.008","BEBAN SEWA MOBILE COLLECTION","l10n_id_mpn_chart.data_account_type_beban_mobile_collection",FALSE,"l10n_id_mpn_chart"
 "a_x_611_02_001","611.02.001","BIAYA TRANSAKSI MNC LIFE","l10n_id_mpn_chart.data_account_type_beban_lain",FALSE,"l10n_id_mpn_chart"
+<<<<<<< HEAD
+"a_x_611_03_001","611.03.001","BEBAN TRANSAKSI FEE SEWA EDC       ","l10n_id_mpn_chart.data_account_type_beban_penagihan_edc",FALSE,"l10n_id_mpn_chart"
+=======
 "a_x_611_03_001","611.03.001","BEBAN TRANSAKSI FEE SEWA EDC","l10n_id_mpn_chart.data_account_type_beban_penagihan_edc",FALSE,"l10n_id_mpn_chart"
+>>>>>>> bd1863782bb97f32b22bc0a15f5bfbbfd7197e7d
 "a_x_611_04_001","611.04.001","BIAYA STARTER PACK KARTU NSICCS","l10n_id_mpn_chart.data_account_type_beban_nsiccs",FALSE,"l10n_id_mpn_chart"
 "a_x_611_04_002","611.04.002","BIAYA KARTU NSICCS","l10n_id_mpn_chart.data_account_type_beban_nsiccs",FALSE,"l10n_id_mpn_chart"
 "a_x_611_04_003","611.04.003","BIAYA MAINTENANCE KARTU NSICCS","l10n_id_mpn_chart.data_account_type_beban_nsiccs",FALSE,"l10n_id_mpn_chart"

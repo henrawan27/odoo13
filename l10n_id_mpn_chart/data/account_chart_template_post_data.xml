@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+<<<<<<< HEAD
+    <record id="l10n_id_mpn_chart" model="account.chart.template">
+        <field name="property_account_receivable_id" ref="a_x_121_01_001"/>
+        <field name="property_account_payable_id" ref="a_x_371_99_999"/>
+        <field name="use_anglo_saxon" eval="1"/>
+    </record>
+=======
 
     <data>
         <record id="l10n_id_mpn_chart" model="account.chart.template">
@@ -8,4 +15,5 @@
             <field name="use_anglo_saxon" eval="1"/>
         </record>
     </data>
+>>>>>>> bd1863782bb97f32b22bc0a15f5bfbbfd7197e7d
 </odoo>

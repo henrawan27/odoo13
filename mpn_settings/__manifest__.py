@@ -20,10 +20,17 @@
         'custom_account_reports',
         'custom_website_portal',
         'financial_report',
+<<<<<<< HEAD
+        'l10n_id_mpn_chart'
+    ],
+    'data': [
+        'data/account_tax_data.xml',
+=======
         # 'l10n_id_mpn_chart'
     ],
     'data': [
         # 'data/account_tax_data.xml',
+>>>>>>> bd1863782bb97f32b22bc0a15f5bfbbfd7197e7d
         'data/company_settings.xml',
     ],
     'installable': True,

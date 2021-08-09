@@ -9,7 +9,11 @@
         </record>
 
         <record id="tax_vat_10_out" model="account.tax">
+<<<<<<< HEAD
+            
+=======
 
+>>>>>>> bd1863782bb97f32b22bc0a15f5bfbbfd7197e7d
             <field name="description">PPN 10%</field>
             <field name="type_tax_use">sale</field>
             <field name="name">PPN Keluaran</field>
