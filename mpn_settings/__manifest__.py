@@ -18,12 +18,9 @@
         'custom_account_asset',
         'custom_account_payment',
         'custom_account_reports',
-        'custom_website_portal',
         'financial_report',
-        # 'l10n_id_mpn_chart'
     ],
     'data': [
-        # 'data/account_tax_data.xml',
         'data/company_settings.xml',
     ],
     'installable': True,
