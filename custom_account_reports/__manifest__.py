@@ -15,6 +15,7 @@
     ],
     'license': 'LGPL-3',
     'data': [
+        'data/financial_report_data.xml',
         'views/search_template_views.xml',
         'views/res_config_settings_views.xml'
     ],

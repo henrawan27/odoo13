@@ -12,6 +12,7 @@
     'depends': ['account'],
     'license': 'LGPL-3',
     'data': [
+        'views/account_move_action.xml',
         'views/account_move_views.xml',
         'views/account_move_filters.xml'
     ],

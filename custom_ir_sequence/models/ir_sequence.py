@@ -8,11 +8,16 @@ import pytz
 class IrSequence(models.Model):
     _inherit = 'ir.sequence'
 
+    def _default_reset_range(self):
+        if self.env.company.mpn_sequence:
+            return 'month'
+        return 'year'
+
     reset_range = fields.Selection(
         selection=[('month', 'Per Month'), ('year', 'Per Year')],
         string='Reset Method',
         required=True,
-        default='year'
+        default=_default_reset_range
     )
 
     @api.model

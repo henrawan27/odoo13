@@ -71,12 +71,33 @@ class AccountAsset(models.Model):
 
     def validate(self):
 
-        if not self.env.company.compute_asset_based_opening or not self.asset_type == 'purchase' or self.first_depreciation_date >= self.env.company.account_opening_date:
+        asset_types = list(set(self.mapped('asset_type')))
+        if len(asset_types) != 1:
+            raise ValidationError(_("Can't run for different types!"))
+
+        if asset_types[0] != 'purchase':
             super(AccountAsset, self).validate()
             for asset in self:
                 # re-write auto_post entries based options
                 asset.depreciation_move_ids.write({'auto_post': False})
             return
+
+        if not self.env.company.compute_asset_based_opening:
+            super(AccountAsset, self).validate()
+            for asset in self:
+                # re-write auto_post entries based options
+                asset.depreciation_move_ids.write({'auto_post': False})
+            return
+
+        date_before = False
+        date_after = False
+        for date in list(set(self.mapped('first_depreciation_date'))):
+            if date < self.env.company.account_opening_date:
+                date_before = True
+            else:
+                date_after = True
+            if date_before and date_after:
+                raise ValidationError(_("Some assets has first depreciation date > opening and some assets don't!"))
 
         # If assets computed based opening, match their opening amount
         # Check if asset is forced to run
