@@ -17,16 +17,38 @@ class AccountAsset(models.Model):
     @api.onchange('account_depreciation_id')
     def _onchange_account_depreciation_id(self):
         super(AccountAsset, self)._onchange_account_depreciation_id()
-        if self.compute_asset_based_opening and self.asset_type == 'purchase':
+
+        asset_types = self.mapped('asset_type')
+
+        all_purchases = False
+        if len(set(asset_types)) == 1:
+            if list(set(asset_types))[0] == 'purchase':
+                all_purchases = True
+
+        if self.env.company.compute_asset_based_opening and all_purchases:
             self._compute_amount_opening()
 
     def _set_value(self):
         super(AccountAsset, self)._set_value()
-        if self.compute_asset_based_opening and self.asset_type == 'purchase':
+        asset_types = self.mapped('asset_type')
+
+        all_purchases = False
+        if len(set(asset_types)) == 1:
+            if list(set(asset_types))[0] == 'purchase':
+                all_purchases = True
+
+        if self.env.company.compute_asset_based_opening and all_purchases:
             self._compute_amount_opening()
 
     def set_to_draft(self):
-        if self.compute_asset_based_opening and self.asset_type == 'purchase':
+        asset_types = self.mapped('asset_type')
+
+        all_purchases = False
+        if len(set(asset_types)) == 1:
+            if list(set(asset_types))[0] == 'purchase':
+                all_purchases = True
+
+        if self.env.company.compute_asset_based_opening and all_purchases:
             for record in self:
                 super(AccountAsset, record).set_to_draft()
                 record._set_value()
@@ -116,8 +138,11 @@ class AccountAsset(models.Model):
 
             # since some journal entries are not created,
             # we must decrease their book and residual value
-            asset.book_value += asset.amount_opening
-            asset.value_residual += asset.amount_opening
+
+            amount_already_deprec = asset.amount_opening - sum(asset.depreciation_move_ids.filtered(lambda x: x.state == 'posted').mapped('amount_total'))
+
+            asset.book_value += amount_already_deprec
+            asset.value_residual += amount_already_deprec
 
     # NEW CREATED FUNCTION
     # ---------------------------------------------------------------------------------
