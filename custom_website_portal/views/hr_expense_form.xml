@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="hr_expense_form_view" name="Expenses">
+        <t t-call="custom_website_portal.form_layout">
+            <span id="data"
+                  class="d-none"
+                  t-att-data-model="model"
+                  t-att-data-id="id"
+            />
+
+            <div class="o_action_manager">
+                <div class="o_action o_view_controller">
+                    <div class="o_cp_controller">
+                        <div class="o_control_panel">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/portal/home">Home</a></li>
+                                <li class="breadcrumb-item"><a t-att-href="'/portal/action?view_mode=list&amp;model=%s&amp;menu=hr_expense' % model.replace('.', '_')">List</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Expense</li>
+                            </ol>
+                            <div t-att-class="'d-flex o_actions_' + model"/>
+                        </div>
+                    </div>
+                    <div class="o_content">
+                        <div class="o_form_view">
+                            <div class="o_form_sheet_bg">
+                                <div class="clearfix position-relative o_form_sheet">
+
+                                    <form role="form" enctype="multipart/form-data" method="POST" t-att-id="'form_' + model">
+                                        <input id="csrf_token"
+                                               name="csrf_token"
+                                               type="hidden"
+                                               t-att-value="request.csrf_token()"
+                                        />
+
+                                        <div class="form-row">
+                                            <div class="form-group col-6 align-items-end">
+                                                <h1>
+                                                    <field name="name" class="oe_title" placeholder="e.g. Materai" required="required" edit="draft"/>
+                                                </h1>
+                                            </div>
+                                            <div class="form-group col-6 text-right align-items-end">
+                                                <attachment type="button" name="listDocuments"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-6">
+                                                <field name="product_id" required="required" edit="draft"/>
+                                            </div>
+
+                                            <div class="form-group col-6">
+                                                <field name="date" required="required" edit="draft"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-6">
+                                                <field name="unit_amount" required="required" edit="draft"/>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <field name="quantity" required="required" edit="draft"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-6">
+                                                <field name="sale_id" edit="draft"/>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <field name="total_amount" compute="compute"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-12">
+                                                <field name="description"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="attachments">
+                                            <div class="attachments_list">
+                                                <attachment type="list" name="attachment_ids"/>
+                                            </div>
+                                            <div class="attachments_file">
+                                                <attachment type="file" name="documents"/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <t t-call="custom_website_portal.modal_warning"/>
+            <t t-call="custom_website_portal.modal_attachment"/>
+        </t>
+    </template>
+</odoo>
