@@ -46,7 +46,7 @@ class financial_report(models.Model):
     ], default='detail', string="Detail/Total")
 	generate_value = fields.Boolean(default = False)
 
-	def cek_query(self):
+	def cek_query_1(self):
 		#======================== isi Value Report ========================
 		print('Report_Value')
 		self._cr.execute('''SELECT a.parent_id, a.id
@@ -109,7 +109,7 @@ class financial_report(models.Model):
 							print(to_s + " : " + str(recs[0]))
 							self._cr.execute('''INSERT INTO public.account_account_financial_html_report_type_ids(report_id, account_type_id) 
 												VALUES (%s,%s)
-												ON CONFLICT ON CONSTRAINT account_account_financial_html_re_report_id_account_type_id_key DO NOTHING''' %(a[0],str(recs[0])))
+												ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],str(recs[0])))
 				else:
 					x = to_s.find("'=', ")
 					to_s2 = to_s[x:]
@@ -123,7 +123,7 @@ class financial_report(models.Model):
 						print(to_s + " : " + str(recs[0]))
 						self._cr.execute('''INSERT INTO public.account_account_financial_html_report_type_ids(report_id, account_type_id) 
 											VALUES (%s,%s)
-											ON CONFLICT ON CONSTRAINT account_account_financial_html_re_report_id_account_type_id_key DO NOTHING''' %(a[0],str(recs[0])))
+											ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],str(recs[0])))
 			else:
 				x = to_s.find("'in', ")
 				if x != -1:
@@ -137,12 +137,12 @@ class financial_report(models.Model):
 							print(to_s + " : " + str(recs))
 							self._cr.execute('''INSERT INTO public.account_account_financial_html_report_type_ids(report_id, account_type_id) 
 												VALUES (%s,%s)
-												ON CONFLICT ON CONSTRAINT account_account_financial_html_re_report_id_account_type_id_key DO NOTHING''' %(a[0],str(recs)))
+												ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],str(recs)))
 						else:
 							print(to_s + " : " + str(recs[1:len(recs)-1]))
 							self._cr.execute('''INSERT INTO public.account_account_financial_html_report_type_ids(report_id, account_type_id) 
 												VALUES (%s,%s)
-												ON CONFLICT ON CONSTRAINT account_account_financial_html_re_report_id_account_type_id_key DO NOTHING''' %(a[0],str(recs[1:len(recs)-1])))
+												ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],str(recs[1:len(recs)-1])))
 				else:
 					to_s =str(a[1])
 					x = to_s.find("'=', ")
@@ -157,7 +157,7 @@ class financial_report(models.Model):
 						print(to_s + " : " + str(hasil))
 						self._cr.execute('''INSERT INTO public.account_account_financial_html_report_type_ids(report_id, account_type_id) 
 											VALUES (%s,%s)
-											ON CONFLICT ON CONSTRAINT account_account_financial_html_re_report_id_account_type_id_key DO NOTHING''' %(a[0],hasil))
+											ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],hasil))
 					else:
 						if hasil.find("'") == -1:
 							self._cr.execute("""SELECT a.id
@@ -172,9 +172,138 @@ class financial_report(models.Model):
 							print(to_s + " : " + str(recs[0]))
 							self._cr.execute('''INSERT INTO public.account_account_financial_html_report_type_ids(report_id, account_type_id) 
 												VALUES (%s,%s)
-												ON CONFLICT ON CONSTRAINT account_account_financial_html_re_report_id_account_type_id_key DO NOTHING''' %(a[0],str(recs[0])))
+												ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],str(recs[0])))
 		# import ipdb; ipdb.set_trace()		
 
+
+	def cek_query_2(self):
+		#======================== isi Value Report ========================
+		print('Report_Value')
+		self._cr.execute('''SELECT a.parent_id, a.id
+							from account_financial_html_report_line as a
+							where a.parent_id notnull''')
+		rec_report = self._cr.fetchall()
+		print(rec_report)		
+		for a in rec_report:
+			self._cr.execute('''INSERT INTO public.account_account_financial_html_report_value(report_value, children_ids) 
+								VALUES (%s,%s)
+								ON CONFLICT ON CONSTRAINT account_account_financial_html_re_report_value_children_ids_key DO NOTHING''' %(a[0],a[1]))
+		
+		self._cr.execute("""UPDATE account_financial_html_report_line
+							SET type_report = 'account_report'
+							where formulas not like '%sum.%'""")
+
+		
+		print('Group_id')
+		self._cr.execute("""SELECT a.id, b.id as group_id
+							from account_financial_html_report_line as a
+							inner join account_group as b on a.name = b.name
+							where a.formulas like '%sum.%' and a.domain like '%account_id.group_id%'""")
+		rec_group_id = self._cr.fetchall()
+		print(rec_group_id)
+
+		for a in rec_group_id:
+			self._cr.execute('''INSERT INTO public.account_account_financial_html_report_group(report_group_id, group_id) 
+								VALUES (%s,%s)
+								ON CONFLICT ON CONSTRAINT account_account_financial_html_rep_report_group_id_group_id_key DO NOTHING''' %(a[0],a[1]))
+		
+		self._cr.execute("""UPDATE account_financial_html_report_line
+							SET type_report = 'group_id'
+							where formulas like '%sum.%' and domain like '%account_id.group_id%'""")
+		
+		
+		print('Account Type')
+		self._cr.execute("""SELECT a.id, a.domain, a.formulas,  a.groupby, a.name, a.parent_id
+							from account_financial_html_report_line as a
+							where a.formulas like '%sum.%' and a.domain like '%account_id.user_type_id%'""")
+		rec_account_type = self._cr.fetchall()	
+		print(rec_account_type)
+		
+		for a in rec_account_type:
+			to_s =str(a[1])
+			value_name = to_s.find("'account_id.user_type_id.name'")
+			if value_name != -1:
+				x = to_s.find("'in', ")
+				if x != -1:
+					to_s2 = to_s[x:]
+					y = to_s2.find(")]")
+					hasil = to_s[x+5:x+y]
+					# import ipdb; ipdb.set_trace()
+					s = hasil[2:len(hasil) -1].split(", ")
+					for recs in s:
+						self._cr.execute("""SELECT a.id
+											from account_account_type as a
+											where a.name like '%s'""" %(str(recs[1:len(recs)-1])))
+						rec_hasil = self._cr.fetchall()
+						for recs in rec_hasil:
+							print(to_s + " : " + str(recs[0]))
+							self._cr.execute('''INSERT INTO public.account_account_financial_html_report_type_ids(report_id, account_type_id) 
+												VALUES (%s,%s)
+												ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],str(recs[0])))
+				else:
+					x = to_s.find("'=', ")
+					to_s2 = to_s[x:]
+					y = to_s2.find(")]")
+					hasil = to_s[x+5:x+y]
+					self._cr.execute("""SELECT a.id
+										from account_account_type as a
+										where a.name like '%s'""" %(str(hasil[1:len(hasil)-1])))
+					rec_hasil = self._cr.fetchall()
+					for recs in rec_hasil:
+						print(to_s + " : " + str(recs[0]))
+						self._cr.execute('''INSERT INTO public.account_account_financial_html_report_type_ids(report_id, account_type_id) 
+											VALUES (%s,%s)
+											ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],str(recs[0])))
+			else:
+				x = to_s.find("'in', ")
+				if x != -1:
+					to_s2 = to_s[x:]
+					y = to_s2.find(")]")
+					hasil = to_s[x+5:x+y]
+					# import ipdb; ipdb.set_trace()
+					s = hasil[2:len(hasil) -1].split(", ")
+					for recs in s:
+						if recs.isdigit():
+							print(to_s + " : " + str(recs))
+							self._cr.execute('''INSERT INTO public.account_account_financial_html_report_type_ids(report_id, account_type_id) 
+												VALUES (%s,%s)
+												ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],str(recs)))
+						else:
+							print(to_s + " : " + str(recs[1:len(recs)-1]))
+							self._cr.execute('''INSERT INTO public.account_account_financial_html_report_type_ids(report_id, account_type_id) 
+												VALUES (%s,%s)
+												ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],str(recs[1:len(recs)-1])))
+				else:
+					to_s =str(a[1])
+					x = to_s.find("'=', ")
+					to_s2 = to_s[x:]
+					cek_data = to_s.find("'not in',")
+					if cek_data != -1:
+						y = to_s2.find(")]")
+					else:
+						y = to_s2.find("), ")
+					hasil = to_s[x+5:x+y]
+					if hasil.isdigit():					
+						print(to_s + " : " + str(hasil))
+						self._cr.execute('''INSERT INTO public.account_account_financial_html_report_type_ids(report_id, account_type_id) 
+											VALUES (%s,%s)
+											ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],hasil))
+					else:
+						if hasil.find("'") == -1:
+							self._cr.execute("""SELECT a.id
+												from account_account_type as a
+												where a.type like '%s'""" %(str(hasil)))					
+						else:
+							self._cr.execute("""SELECT a.id
+												from account_account_type as a
+												where a.type like '%s'""" %(str(hasil[1:len(hasil)-1])))						
+						rec_hasil = self._cr.fetchall()
+						for recs in rec_hasil:
+							print(to_s + " : " + str(recs[0]))
+							self._cr.execute('''INSERT INTO public.account_account_financial_html_report_type_ids(report_id, account_type_id) 
+												VALUES (%s,%s)
+												ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],str(recs[0])))
+		# import ipdb; ipdb.set_trace()		
 
 		print('Account')
 		self._cr.execute("""SELECT a.formulas, a.domain, a.groupby, a.name, a.parent_id, a.id
@@ -199,12 +328,12 @@ class financial_report(models.Model):
 							print(to_s + " : " + str(recs))
 							self._cr.execute('''INSERT INTO public.account_account_financial_report(report_line_id, account_id) 
 												VALUES (%s,%s)
-												ON CONFLICT ON CONSTRAINT account_account_financial_html_re_report_id_account_type_id_key DO NOTHING''' %(a[0],str(recs)))
+												ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],str(recs)))
 						else:
 							print(to_s + " : " + str(recs[1:len(recs)-1]))
 							self._cr.execute('''INSERT INTO public.account_account_financial_report(report_line_id, account_id) 
 												VALUES (%s,%s)
-												ON CONFLICT ON CONSTRAINT account_account_financial_html_re_report_id_account_type_id_key DO NOTHING''' %(a[0],str(recs[1:len(recs)-1])))
+												ON CONFLICT ON CONSTRAINT account_account_financial_html_r_report_id_account_type_id_key1 DO NOTHING''' %(a[0],str(recs[1:len(recs)-1])))
 
 		
 		# for a in rec_account:
@@ -227,7 +356,7 @@ class financial_report(models.Model):
 
 	
 	
-	@api.onchange('account_ids', 'account_type_ids', 'group_ids', 'account_report_ids')
+	@api.onchange('account_ids', 'account_type_ids', 'group_ids', 'account_report_ids','formula')
 	def _add_value(self):
 		value={}
 		for rec in self:
@@ -349,13 +478,13 @@ class financial_report(models.Model):
 		report_vals = self.env['account.financial.html.report.line'].search_read([('type_report', '!=', False)])
 		for b in report_vals:        		
 			if b['type_report'] == 'accounts':
-				self._loop_account_ids(b, b['id'], b['level'] + 1)
+				self._loop_account_ids(b, b['id'], b['level'])
 			if b['type_report'] == 'group_id':
-				self._loop_group_ids(b, b['id'], b['level'] + 1)
+				self._loop_group_ids(b, b['id'], b['level'])
 			if b['type_report'] == 'account_type':
-				self._loop_account_type_ids(b, b['id'], b['level'] + 1)
+				self._loop_account_type_ids(b, b['id'], b['level'])
 			if b['type_report'] == 'account_report':
-				self._loop_account_report_ids(b, b['id'], b['level'] + 1)
+				self._loop_account_report_ids(b, b['id'], b['level'])
 
 	def _loop_account_ids(self,line_id,parent_ids,level):
 		for a in line_id['account_ids']:
@@ -375,6 +504,13 @@ class financial_report(models.Model):
 
 	def _write_vals(self, line_id, parent_ids, level):
 		vals = self.env['account.financial.html.report.line'].search([('id', '=', line_id)])
+		print(vals['account_report_ids'])
+		print(level)
+		
+		if len(vals['financial_report_id']) == 1:
+			level = 0
+		else:
+			level = level + 1
 		value =  {
 		            # 'parent_id': parent_ids,
 		            'level': level,
