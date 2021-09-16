@@ -18,7 +18,6 @@
         'custom_account_asset',
         'custom_account_payment',
         'custom_account_reports',
-        'financial_report',
         'l10n_id_mpn_chart',
         'mail'
     ],
