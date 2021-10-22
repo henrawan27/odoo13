@@ -304,7 +304,10 @@ class AccountAsset(models.Model):
         if any([len(accounts) != 1 for accounts in [account_asset_ids, account_depreciation_ids, account_depreciation_expense_ids]]):
             raise ValidationError(_('Cannot run action with different accounts!'))
 
-    model_id = fields.Many2one('account.asset', string='Model', change_default=True, readonly=True, states={'draft': [('readonly', False)]}, domain="[('company_id', '=', company_id), ('state', '=', 'model')]")
+    model_id = fields.Many2one('account.asset', string='Model', 
+        change_default=True, 
+        readonly=True, states={'draft': [('readonly', False)]}, 
+        domain="[('company_id', '=', company_id), ('state', '=', 'model')]")
     amount_opening = fields.Monetary(string='Opening Amount', currency_field='currency_id', compute=_compute_amount_opening)
     compute_asset_based_opening = fields.Boolean(related='company_id.compute_asset_based_opening', string='Compute Asset based Opening')
     move_opening_ids = fields.Many2many('account.move', string='Opening Journal Entries', domain="[('type', '=', 'entry')]")
