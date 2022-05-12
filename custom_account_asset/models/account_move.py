@@ -57,6 +57,10 @@ class AccountMove(models.Model):
         return super(AccountMove, self).action_post()
 
     def button_draft(self):
+        for move in self:
+            if move.asset_id:
+                move.asset_id.value_residual -= abs(sum(move.line_ids.filtered(lambda l: l.account_id == move.asset_id.account_depreciation_id and l.parent_state == 'cancel').mapped('balance')))                
+
         if self.opening_asset_ids:
             raise UserError(_('This move used for asset opening, set to draft assets linked to this move first!'))
         if self.correction_id:
